@@ -1,0 +1,460 @@
+#+TITLE: Exercise 10: Structures
+#+AUTHOR: PRAVEEN KUMAR R
+#+DATE: 03/04/2018
+#+STARTUP: showeverything
+#+LATEX_HEADER: \usepackage{palatino}
+#+LATEX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LATEX_HEADER: \usepackage{setspace}
+#+LATEX: \linespread{1.2}
+#+PROPERTY: header-args :exports both
+#+OPTIONS: toc:nil
+#+options: num:1
+
+#+LATEX: \linespread{1.5}
+| Assignment |              10 |
+| Reg No     |    312217104114 |
+| Name       | PRAVEEN KUMAR R |
+| Grade      |                 |
+| Date       |      03-04-2018 |
+* Arrays of structures (1)
+1. Represent an employee by a structure, having these members:
+   1. employee code
+   2. name
+   3. designation
+   4. pay: basic pay, hra, da
+2. Employees of a company can be represented by an array of
+   structures. Write a function to populate the employees array.
+3. Write a function to print the salary slip of a given employee.
+4. Drive your functions from =main()= and test them.
+** Specification
+A structure =employees=, which gets the required elements, and 2
+functions =populate()= and =print_salary()=, which gets an array
+of pointers to structures and its size as input, assigns the values
+and prints the values respectively.
+** Prototype
+#+BEGIN_EXAMPLE
+void populate(Employees* e[],int n);
+void print_salary(Employees* e[],int n);
+#+END_EXAMPLE
+** Program Design
+The program consists of a structure, 2 functions =populate(Employees* e[],int n)=,
+=print_salary(Employees* e[],int n)=, which does the required actions,
+and =main()=, which gets input from =stdin=, and calls the functions.
+** Algorithm
+#+BEGIN_EXAMPLE
+def populate(e,n):
+  for i in range(n):
+    #get the input from the user
+    e[i].code=code
+    e[i].name=name
+    e[i].designation=designation
+    e[i].bp,e[i].hra,e[i].da=bp,hra,da
+def print_salary(e,n):
+  #get code from user
+  for i in range(n):
+    if e[i].code==code:
+      #print bp,hra,da 
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <arrstruct.in
+  #include<stdio.h>
+  #include<string.h>
+  #include<stdlib.h>
+  #define N 1000
+  struct employees{
+    int code;
+    char name[100];
+    char designation[100];
+    int bp,hra,da;
+  };
+  typedef struct employees Employees;
+  void populate(Employees* e[],int n)
+  {
+    int code,i;
+    char name[100];
+    char designation[100];
+    int bp,hra,da;
+    for(i=0;i<n;i++)
+      {
+        scanf("%d%s%s%d%d%d",&code,name,designation,&bp,&hra,&da);
+        e[i]=(Employees*)malloc(sizeof(Employees));
+        e[i]->code=code;
+        strcpy(e[i]->name,name);
+        strcpy(e[i]->designation,designation);
+        e[i]->bp=bp;
+        e[i]->hra=hra;
+        e[i]->da=da;
+      }  
+  }
+  void print_salary(Employees* e[],int n){
+    int i;
+    for(i=0;i<n;i++)
+      {
+        printf("%d %s %s %d %d %d\t %d\n",
+               e[i]->code,e[i]->name,e[i]->designation,e[i]->bp,e[i]->hra,
+               e[i]->da,e[i]->bp+e[i]->hra+e[i]->da);
+      }
+  }
+
+  int main()
+  {
+    int n;
+    Employees* e[100];
+    scanf("%d",&n);
+    populate(e,n);
+    print_salary(e,n);
+  }
+#+END_SRC
+** Test
+*** Input
+#+BEGIN_EXAMPLE
+4
+234 PRAVEEN Manager 50000 2000 1500
+654 JAMES Clerk 10000 1000 300
+645 DENNIS CEO 100000 5000 2500
+723 LILLY Employee 30000 1100 800
+
+#+END_EXAMPLE
+*** Output
+#+RESULTS:
+| 234 PRAVEEN Manager 50000 2000 1500 |  53500 |
+| 654 JAMES Clerk 10000 1000 300      |  11300 |
+| 645 DENNIS CEO 100000 5000 2500     | 107500 |
+| 723 LILLY Employee 30000 1100 800   |  31900 |
+
+
+* Array of structures
+** Problem description
+
+1. Define a structure to represent students. It should store 3 ut marks for a subject and
+   the final internal mark for that subject.
+#+BEGIN_EXAMPLE
+    struct student {
+      int rollnum;
+      char name[100];
+      int ut[4];
+    };
+#+END_EXAMPLE
+ 
+   Write functions to create a student structure and initialzie it. Write a function to print
+   a student struture.
+2. Read the roll numbers, names and ut marks for 3 unit tests for 10 students from stdin.
+3. Write a function to calculate the final internal mark for each students.
+4. Modify the structure to store the ut marks and internal mark in 5 subjects. Write a
+   function to compute internal marks of students for 5 different subjects.
+*** Subproblem 1
+#+BEGIN_SRC C 
+  #include<stdio.h>
+  #include<string.h>
+  struct student{
+    int rollnum;
+    char name[100];
+    int ut[4];
+  };
+  typedef struct student Student;
+  Student initialise(int roll,char name[],int ut[])
+  {
+    Student s={roll,"\0",{ut[0],ut[1],ut[2]}};
+    strcpy(s.name,name);
+    return s;
+  }
+  void print(Student S)
+  {
+    printf("%d\t%s\t%d %d %d \n",S.rollnum,S.name,S.ut[0],S.ut[1],S.ut[2]);
+  }
+  int main()
+  {
+    int k[]={45,67,87};
+    char c[]="praveen";
+    print(initialise(1,c,k));
+  }
+
+
+#+END_SRC
+** Test
+#+RESULTS:
+| 1 | praveen | 45 67 87 |
+
+*** Subproblem 2
+#+BEGIN_SRC C :cmdline <ex10.in
+
+  #include<stdio.h>
+  #include<string.h>
+  #include<ctype.h>
+  #include<stdlib.h>
+  #define MAXLINE 100
+  struct student{
+    int rollnum;
+    char name[100];
+    int ut[4];
+    int avg; 
+  };
+  typedef struct student Student;
+  int read(Student s[])
+  {
+    int i=0;
+    char line[MAXLINE];
+    for( i=0;fgets(line,MAXLINE,stdin);i++)
+      {
+        sscanf(line,"|%d| %s |%d|%d|%d|",
+               &s[i].rollnum,s[i].name,&s[i].ut[0],&s[i].ut[1],&s[i].ut[2]);
+      
+      }
+    return i;
+  }
+ void cal_average(Student s[],int n)
+{
+   float f;
+  for(int i=0;i<n;i++)
+    {
+       f=(s[i].ut[1]+s[i].ut[0]+s[i].ut[2])/15.0;
+       s[i].avg= f-(int)f>0.5?(int)f+1:(int)f;
+    }
+}
+  void print_all(Student s[],int n)
+  {
+    for(int i=0;i<n;i++)
+        printf("%d\t%s\t%d %d %d  %d\n",
+                s[i].rollnum,s[i].name,s[i].ut[0],s[i].ut[1],s[i].ut[2],s[i].avg);
+  
+  }
+
+  int main()
+  {
+    Student s[100];
+    int n=read(s);
+    cal_average(s,n);
+    print_all(s,n); 
+    return 0;
+  }
+
+
+#+END_SRC
+** Test
+#+RESULTS:
+| 1 | praveenkumar | 99 98 100  20 |
+| 2 | ramkaushik   | 97 100 99  20 |
+| 3 | nitin        | 99 98 100  20 |
+| 4 | pratheeps    | 90 89 100  19 |
+| 5 | Nandini      | 100 94 95  19 | 
+
+*** Subproblem 3
+  #+BEGIN_SRC C :cmdline <ex10_1.in
+    #include<stdio.h>
+    #include<string.h>
+    #include<ctype.h>
+    #include<stdlib.h>
+    #define MAXLINE 100
+    struct student{
+      int rollnum;
+      char name[100];
+      int ut[5];
+        int avg; 
+    };
+    typedef struct student Student;
+    int read(Student s[])
+    {
+      int i=0;
+      char line[MAXLINE];
+      for( i=0;fgets(line,MAXLINE,stdin);i++)
+        {
+          sscanf(line,"|%d| %s |%d|%d|%d|%d|%d|",
+                 &s[i].rollnum,s[i].name,&s[i].ut[0],&s[i].ut[1],
+                 &s[i].ut[2],&s[i].ut[3],&s[i].ut[4]);
+          
+        }
+      return i;
+    }
+    void cal_average(Student s[],int n)
+    {
+      float f;
+      for(int i=0;i<n;i++)
+        {
+          f=(s[i].ut[1]+s[i].ut[0]+s[i].ut[2]+s[i].ut[3]+s[i].ut[4])/25.0;
+          s[i].avg= f-(int)f>0.5?(int)f+1:(int)f;
+        }
+    }
+    void print_all(Student s[],int n)
+    {
+      for(int i=0;i<n;i++)
+            printf("%d\t%s\t%d %d %d %d %d   %d  \n",
+               s[i].rollnum,s[i].name,s[i].ut[0],s[i].ut[1],
+               s[i].ut[2],s[i].ut[3],s[i].ut[4],s[i].avg);
+      
+    }
+
+    int main()
+    {
+      Student s[100];
+      int n=read(s);
+      cal_average(s,n);
+      print_all(s,n); 
+      return 0;
+    }
+
+  #+END_SRC
+** Test
+*** Sample input
+    The contents of the ex10_1.in file is
+|1| praveenkumar |99|98|100|97|99|
+|2| ramkaushik |97|100|99|87|94|
+|3| nitin |99|98|100|84|95|
+|4| pratheeps |90|89|100|88|90|
+|5| Nandini |100|94|95|93|96|
+
+
+*** Output
+
+  #+RESULTS:
+  | 1 | praveenkumar | 99 98 100 97 99   20 |
+  | 2 | ramkaushik   | 97 100 99 87 94   19 |
+  | 3 | nitin        | 99 98 100 84 95   19 |
+  | 4 | pratheeps    | 90 89 100 88 90   18 |
+  | 5 | Nandini      | 100 94 95 93 96   19 |
+
+* Number conversion
+** Problem description
+Convert the given decimal number into binary, octal and hexadecimal numbers using user
+defined functions.
+** Specification
+3 functions =binary()=, which takes the number and an integer
+array as input, finds the number in binary, stores it in the
+array and returns the length, =octal()=, which takes the number 
+and an integer array as input, finds the number in octal, 
+stores it in the array and returns the length, and =hexadecimal()=,
+which takes the number and character array as input, finds the
+number in hexadecimal, stores it in the array and returns the length.
+** Prototype
+#+BEGIN_EXAMPLE
+int binary( int n, int a[]);
+int octal( int n, int a[]);
+int hexadecimal(int n, char a[]);
+#+END_EXAMPLE
+** Program Design
+The program consists of 3 functions =binary( int n, int a[])=,
+=octal( int n, int a[])=, =hexadecimal(int n, char a[])=, 
+which convert the given number into the required form, and 
+=main()=, which gets the input from =stdin=, calls the 
+functions and prints the result on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def binary(n,a):
+  static k=0 //k holds its value
+  if n==1:
+    a[k++]=n
+  else:
+    int b=n%2
+    binary(n/2,a)
+    a[k++]=b
+  return k
+def octal(n,a):
+  static k=0
+  if n<8:
+    a[k++]=n
+  else:
+    int b=n%8
+    octal(n/8,a)
+    a[k++]=b
+  return k
+def hexadecimal(n,a):
+  static k=0
+  if n<10:
+    a[k++]=48+n
+  elif 10<=n<16:
+    a[k++]=55+n
+  else:
+    int b=n%16
+    hexadecimal(n/16,a)
+    if b<10:
+      a[k++]=48+b
+    else:
+      a[k++]=55+b
+  return k 
+#+END_EXAMPLE
+** Program
+#+BEGIN_SRC C :cmdline <ex10_2.in
+  #include<stdio.h>
+  #include<ctype.h>
+  #include<stdlib.h>
+  #include<string.h>
+  int k=0;
+  int binary(int n,char a[])
+  {
+    
+    if(n<=1)
+      a[k++]=(char)(n+48);
+    else 
+      {
+        int p=n%2;
+        binary(n/2,a);
+        a[k++]=(char)(p+48);
+      }
+    return k;
+  }
+  int octal(int n,char a[])
+  {
+    if(n<=7)
+      a[k++]=(char)(n+48);
+    else 
+      {
+        int p=n%8;
+        octal(n/8,a);
+        a[k++]=(char)(p+48);
+      }
+    return k;
+  }
+  int hexadecimal(int n,char a[])
+  {
+    if(n<=15)
+      {
+        if(n>=10)
+          a[k++]='A'+(n-10);
+        else
+          a[k++]=(char)(n+48);
+      }
+    else 
+      {
+        int p=n%16;
+        hexadecimal(n/16,a);
+        if(p>=10)
+          a[k++]='A'+(p-10);
+        else 
+          a[k++]=(char)(p+48);
+      }
+    return k;
+  }
+  int main()
+  {
+    int n=45;
+    char c1[100],c2[100],c3[100];
+    int p1,p2,p3;
+    while (scanf("%d",&n)!=EOF)
+      {
+        p1=binary(n,c1);
+        c1[p1]='\0';
+        k=0;
+        p2=octal(n,c2);
+        c2[p2]='\0';
+        k=0;
+        p3=hexadecimal(n,c3);
+        c3[p3]='\0';
+        k=0;
+        printf("%d\t %s\t%s\t%s\n",n,c1,c2,c3);
+        
+      }
+  }
+
+#+END_SRC
+** Test
+*** Input
+#+BEGIN_EXAMPLE
+23 456 323 24533 432 35
+#+END_EXAMPLE
+*** Output
+#+RESULTS:
+|    23 |           10111 |    27 |   17 |
+|   456 |       111001000 |   710 |  1C8 |
+|   323 |       101000011 |   503 |  143 |
+| 24533 | 101111111010101 | 57725 | 5FD5 |
+|   432 |       110110000 |   660 |  1B0 |
+|    35 |          100011 |    43 |   23 |

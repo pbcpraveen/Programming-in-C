@@ -1,0 +1,762 @@
+#+TITLE: Exercise 8: Arrays and strings
+#+AUTHOR: PRAVEEN KUMAR R
+#+DATE: 24/03/2018
+#+options: date:nil
+
+#+LaTex_HEADER: \usepackage{palatino}
+#+LaTex_HEADER: \usepackage[top=1in,bottom=1.25in,left=1.25in,right=1.25in]{geometry}
+#+LaTex_HEADER: \usepackage{setspace}
+#+OPTIONS: toc:nil
+#+OPTIONS: num:1
+#+STARTUP: showeverything
+
+#+BEGIN_EXPORT latex
+\linespread{1.2}
+#+END_EXPORT
+#+PROPERTY: header-args :exports both
+
+| Assignment |               8 |
+| Reg No     |    312217104114 |
+| Name       | PRAVEEN KUMAR R |
+| Grade      |                 |
+| Date       |    24/03/2018 |
+#+LATEX: \linespread{1.5}
+
+* Array of strings:
+1. Declare an array of pointers to store strings.
+#+BEGIN_EXAMPLE
+char* names[N];
+#+END_EXAMPLE
+2. Declare an array of pointers to store strings and initialize them (maybe, with the names of the 12 months). Terminate the array with NULL pointer.
+
+** Program design:
+This program has only the main().
+
+** Program:
+#+BEGIN_SRC C
+  #include<stdio.h>
+  int main()
+  {
+    char* names[]={"January",
+                     "February",
+                     "March",
+                     "April",
+                     "May",
+                     "June",
+                     "July",
+                     "August",
+                     "September",
+                     "October",
+                     "November",
+                     "December",
+                     NULL};
+    int i=0;
+    while(names[i])
+      {
+        printf("%s\n",names[i]);
+        i++;
+      }  
+    return 0;
+  }
+#+END_SRC
+** Output
+#+RESULTS:
+| January   |
+| February  |
+| March     |
+| April     |
+| May       |
+| June      |
+| July      |
+| August    |
+| September |
+| October   |
+| November  |
+| December  |
+
+* Passing an array of strings:
+1. Define a function to count the number of strings in the pointer array.
+#+BEGIN_EXAMPLE
+int strings_length (char* names[]) {
+    for (int i = 0; names[i] != NULL; i++) ;
+    return i; 
+}
+#+END_EXAMPLE
+2. Print an array of strings.
+#+BEGIN_EXAMPLE
+void strings_print (char* names[], int n) { 
+    for (int i = 0; i < n; i++)
+        printf ("%s\n", entries[i]);
+}
+#+END_EXAMPLE
+
+** Program design:
+This program has three functions:
+        1. main()
+	2. strings_print(names[],n)
+	3. strings_length(names[])
+
+** Program:
+#+BEGIN_SRC C
+  #include<stdio.h>
+  int strings_length(char* names[])
+  {
+    int i;
+    for(i=0;names[i]!=NULL;i++)
+      ;
+    return i;
+  }
+  void strings_print(char* names[],int n)
+  {
+    for(int i=0;i<n;i++)
+      printf("%s\n",names[i]);
+  }
+  int main()
+  {
+    char* names[13]={"Jan",
+                     "Feb",
+                     "Mar",
+                     "Apr",
+                     "May",
+                     "Jun",
+                     "Jul",
+                     "Aug",
+                     "Sep",
+                     "Oct",
+                     "Nov",
+                     "Dec",
+                     NULL};
+    int n=strings_length(names);
+    strings_print(names,n);
+    return 0;
+  }
+
+#+END_SRC
+** Output
+#+RESULTS:
+| Jan |
+| Feb |
+| Mar |
+| Apr |
+| May |
+| Jun |
+| Jul |
+| Aug |
+| Sep |
+| Oct |
+| Nov |
+| Dec |
+
+* Allocate memory for a string:
+We want to clone a C-string. Function string_clone(s) takes a C-string as input and returns another C-string as the output. It allocates just enough memory for a new character array, using malloc() and copies s to the newly created character array, making it a C- string.
+#+BEGIN_EXAMPLE
+char *s = "In the beginning was the word."; 
+char *t = string_clone (s);
+char* string_clone (char s[])
+{
+  char *t = (char*) malloc (strlen(s)); 
+  strcpy (t, s);
+  return t;
+}
+#+END_EXAMPLE
+Function strings_read(names) reads a sequence of lines from stdin into an array of strings. Function strings_print(names, n) prints an array of strings on stdout. Function string_clone(s) creates a character array and copies s to it and returns a pointer to the array.
+#+BEGIN_EXAMPLE
+int strings_read (char* names[]) {
+  char line[MAXLINE]; 
+  int i;
+  for (i = 0; fgets (line, MAXLINE, stdin) != NULL; i++) { int n = strlen (line);
+    line[n-1] = ’\0’;
+    names[i] = string_clone (line);
+  }
+  return i; 
+}
+char* string_clone (char s[]) {
+  char *t = (char*) malloc (strlen(s));  
+  strcpy (t, s);
+  return t;
+}
+void strings_print (char* names[], int n) {
+  for (int i = 0; i < n; i++) 
+    printf ("%s\n", names[i]);
+}
+#+END_EXAMPLE
+
+** Program design:
+This program has 4 functions:
+        1. main()
+	2. string_clone(s[])
+	3. strings_print(names[],n)
+	4. strings_read(names[])
+
+** Program:
+#+BEGIN_SRC C :cmdline <ex08_1.in
+  #include<stdio.h>
+  #include<string.h>
+  #define N 100
+  #define MAXLINE 100
+  char* string_clone(char s[])
+  {
+    char* t=(char*)malloc(strlen(s));
+    strcpy(t,s);
+    return t;
+  }
+  int strings_read(char* names[])
+  {
+    char line[MAXLINE];
+    int i;
+    for(i=0;fgets(line,MAXLINE,stdin)!=NULL;i++)
+      {
+        int n=strlen(line);
+        line[n-1]='\0';
+        names[i]=string_clone(line);
+      }
+    return i;
+  }
+  void strings_print(char* names[],int n)
+  {
+    for(int i=0;i<n;i++)
+      printf("%s\n",names[i]);
+  }
+  int main()
+  {
+    char* names[N];
+    int n=strings_read(names);
+    strings_print(names,n);
+    return 0;
+  }
+#+END_SRC
+
+
+** Input
+#+BEGIN_EXAMPLE
+The Unix operating system was conceived and implemented in 1969,
+at AT&T's Bell Laboratories in the United States by Ken Thompson, 
+Dennis Ritchie, Douglas McIlroy, and Joe Ossanna. First released 
+in 1971, Unix was written entirely in assembly language,
+as was common practice at the time. Later, in a key 
+pioneering approach in 1973, it was rewritten in the C programming 
+language by Dennis Ritchie (with the exception of some hardware and I/O routines).
+The availability of a high-level language implementation 
+of Unix made its porting to different computer platforms easier
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+| The        | Unix         | operating | system       | was        | conceived | and            | implemented | in         | 1969,    |             |     |            |
+| at         | AT&T's       | Bell      | Laboratories | in         | the       | United         | States      | by         | Ken      | Thompson,   |     |            |
+| Dennis     | Ritchie,     | Douglas   | McIlroy,     | and        | Joe       | Ossanna.       | First       | released   |          |             |     |            |
+| in         | 1971,        | Unix      | was          | written    | entirely  | in             | assembly    | language,A |          |             |     |            |
+| as         | was          | common    | practice     | at         | the       | time.          | Later,      | in         | a        | key         |     |            |
+| pioneering | approach     | in        | 1973,        | it         | was       | rewritten      | in          | the        | C        | programming |     |            |
+| language   | by           | Dennis    | Ritchie      | (with      | the       | exception      | of          | some       | hardware | and         | I/O | routines). |
+| The        | availability | of        | a            | high-level | language  | implementation |             |            |          |             |     |            |
+| of         | Unix         | made      | its          | porting    | to        | different      | computer    | platforms  | easier   |             |     |            |
+* Sort an array of strings:
+You have written selection_sort() to sort an array of numbers. Do necessary changes in selection_sort() to sort an array of n lines in lexicographic order. The specification is
+#+BEGIN_EXAMPLE
+void selection_sort (char* names[], int low,int high)
+#+END_EXAMPLE
+Test your sort function from main(). Use an array of strings, initialized along with declaration, in main().
+
+** Program design:
+This program has 5 functions:
+        1. minimum(m[],low,high)
+	2. swap(m[],a,b)
+	3. string_print(names[],n)
+        4. selection_sort(m[],low,high)
+        5. main()
+
+** Program:
+#+BEGIN_SRC C :cmdline <ex08_3.in
+  #include<stdio.h>
+  #include<string.h>
+  #define N 100
+  #define MAXLINE 100
+  int minimum(char* m[],int low,int high)
+  {
+    int i,minpos = low;
+    for(i = low+1; i < high; i++)
+      {
+        if(strcmp(m[i], m[minpos])<0)
+          {
+            minpos = i;
+          }
+        
+      }
+    return minpos;
+  }
+
+
+  void swap(char* m[],int a ,int b)
+  {
+    char* t = m[a];
+    m[a] = m[b];
+    m[b] = t;
+  }
+
+
+  void string_print(char* names[],int n)
+  {
+    for(int i=0;i<n;i++)
+      {
+        printf("%s\n  ",names[i]);
+      }
+  }
+
+
+  void selection_sort(char* m[],int low,int high)
+  {
+    int min;
+    for(int i=low; i < high-1;i++)
+      {
+        min = minimum(m,i,high);
+        swap(m,i,min);
+      }
+  }
+
+  char* string_clone(char s[])
+  {
+    char* t=(char*)malloc(strlen(s));
+    strcpy(t,s);
+    return t;
+  }
+  int strings_read(char* names[])
+  {
+    char line[MAXLINE];
+    int i;
+    for(i=0;fgets(line,MAXLINE,stdin)!=NULL;i++)
+      {
+        int n=strlen(line);
+        line[n-1]='\0';
+        names[i]=string_clone(line);
+      }
+    return i;
+  }
+
+  int main()
+  {
+    char* names[N];
+    int n=strings_read(names);
+    selection_sort(names,0,n);
+    string_print(names,n);
+    return 0;
+  }
+#+END_SRC
+** Test
+*** Input
+#+BEGIN_EXAMPLE
+monica
+chandler
+ross
+rachel
+joey
+pheobe
+gunther
+richard
+james
+
+#+END_EXAMPLE
+
+*** Output
+
+#+RESULTS:
+| chandler |
+| gunther  |
+| james    |
+| joey     |
+| monica   |
+| pheobe   |
+| rachel   |
+| richard  |
+| ross     |
+
+* Read a sequence of strings (lines) from stdin:
+Write a function strings_read(lines) to read a sequence of lines from stdin. It stores thelinesinanarrayofstringschar* lines[],and returns the count of lines as the result. After you read each line from stdin, allocate memory using string_clone() and store it as a string in char* lines[].
+Test your function. Read the name list of your class from stdin. Sort it and print it. 
+
+** Program design:
+This program has 4 functions:
+        1. string_clone(s[])
+        2. string_read(names[])
+        3. string_print(names[],n)
+	4. main()
+
+** Program:
+#+BEGIN_SRC C :cmdline <ex08_1.in
+  #include<stdio.h>
+  #include<string.h>
+  #include<stdlib.h>
+  #define N 100
+  #define MAXLINE 100
+  char* string_clone(char s[])
+  {
+    char* t=(char*)malloc(strlen(s)+1);
+    strcpy(t,s);
+    return t;
+    
+  }
+  int string_read(char* names[])
+  {
+    char line[MAXLINE];
+    int i;
+    for (i=0;fgets(line,MAXLINE,stdin)!=NULL;i++)
+      {
+        int n=strlen(line);
+        line[n-1]='\0';
+        names[i]=string_clone(line);
+      }
+    return i;
+    
+  }
+
+  void string_print(char* names[],int n)
+  {
+    for(int i=0;i<n;i++)
+      {
+        printf("%s\n",names[i]);
+      }
+  }
+  int main()
+  {
+    char* names[N];
+    int n=string_read(names);
+    string_print(names,n);
+    return 0;
+  }
+
+#+END_SRC
+
+
+** Test 
+*** Input
+
+#+BEGIN_EXAMPLE
+The Unix operating system was conceived and implemented in 1969,
+at AT&T's Bell Laboratories in the United States by Ken Thompson, 
+Dennis Ritchie, Douglas McIlroy, and Joe Ossanna. First released 
+in 1971, Unix was written entirely in assembly language,
+as was common practice at the time. Later, in a key 
+pioneering approach in 1973, it was rewritten in the C programming 
+language by Dennis Ritchie (with the exception of some hardware and I/O routines).
+The availability of a high-level language implementation 
+of Unix made its porting to different computer platforms easier
+#+END_EXAMPLE
+*** Output
+#+RESULTS:
+| The        | Unix         | operating | system       | was        | conceived | and            | implemented | in        | 1969,    |             |     |            |
+| at         | AT&T's       | Bell      | Laboratories | in         | the       | United         | States      | by        | Ken      | Thompson,   |     |            |
+| Dennis     | Ritchie,     | Douglas   | McIlroy,     | and        | Joe       | Ossanna.       | First       | released  |          |             |     |            |
+| in         | 1971,        | Unix      | was          | written    | entirely  | in             | assembly    | language, |          |             |     |            |
+| as         | was          | common    | practice     | at         | the       | time.          | Later,      | in        | a        | key         |     |            |
+| pioneering | approach     | in        | 1973,        | it         | was       | rewritten      | in          | the       | C        | programming |     |            |
+| language   | by           | Dennis    | Ritchie      | (with      | the       | exception      | of          | some      | hardware | and         | I/O | routines). |
+| The        | availability | of        | a            | high-level | language  | implementation |             |           |          |             |     |            |
+| of         | Unix         | made      | its          | porting    | to        | different      | computer    | platforms | easier   |             |     |            |
+
+ 
+* Sort an array of strings based on string length:
+The strings are sorted according to their length so that shorter lines come before longer ones in the result.
+
+** Program design:
+This program has 5 functions:
+        1. minimum(m[],low,high)
+	2. swap(m[],a,b)
+	3. string_print(names[],n)
+        4. selection_sort_len(m[],low,high)
+        5. main()
+
+** Program:
+#+BEGIN_SRC C :cmdline <ex08_4.in
+  #include<stdio.h>
+  #include<string.h>
+  #define N 100
+  #define MAXLINE 100
+  char* string_clone(char s[])
+  {
+    char* t=(char*)malloc(strlen(s));
+    strcpy(t,s);
+    return t;
+  }
+  int strings_read(char* names[])
+  {
+    char line[MAXLINE];
+    int i;
+    for(i=0;fgets(line,MAXLINE,stdin)!=NULL;i++)
+      {
+        int n=strlen(line);
+        line[n-1]='\0';
+        names[i]=string_clone(line);
+      }
+    return i;
+  }
+  int minimum(char* m[],int low,int high)
+  {
+    int i,minpos=low;
+    for(i=low+1;i<high;i++)
+      {
+        if(strlen(m[minpos])>strlen(m[i]))
+          minpos=i;
+      }
+    return minpos;
+  }
+  void swap(char* m[],int a,int b)
+  {
+    char* temp=m[a];
+    m[a]=m[b];
+    m[b]=temp;
+  }
+  void selection_sort_len(char* m[],int low,int high)
+  {
+    int min;
+    for(int i=low;i<high-1;i++)
+      {
+        min=minimum(m,i,high);
+        swap(m,i,min);
+      }
+  }
+  void strings_print(char* names[],int n)
+  {
+    for(int i=0;i<n;i++)
+      printf("%s\n",names[i]);
+  }
+  int main()
+  {
+    char* names[100];
+    int n=strings_read(names);
+    selection_sort_len(names,0,n);
+    strings_print(names,n);
+    return 0;
+  }
+
+#+END_SRC
+** Test
+*** Input
+praveen kumar
+lorents
+albert
+george
+ram
+ziva
+*** Output
+#+RESULTS:
+| ram     |       |
+| ziva    |       |
+| albert  |       |
+| george  |       |
+| lorents |       |
+| praveen | kumar |
+
+* Search a string in an array of strings:
+We wish to insert a new string into an array of sorted strings. First, we need to find the right position where the new strings has to be inserted. Do the needed changes in binary_partition() to find the right position of a target string in a sorted array of strings.
+
+** Program design:
+This program has 3 functions:
+        1.  main()
+        2.  binary_partition(m[],n[],low,high)
+	3.  string_print(names[],low,high)
+
+** Program
+#+BEGIN_SRC C :cmdline <ex08_5.in
+  #include<stdio.h>
+  #include<stdlib.h>
+  #include<string.h>
+  #define N 100
+  #define MAXLINE 100
+  char* string_clone(char s[])
+  {
+    char* t=(char*)malloc(strlen(s));
+    strcpy(t,s);
+    return t;
+  }
+  int strings_read(char* names[])
+  {
+    char line[MAXLINE];
+    int i;
+    for(i=0;fgets(line,MAXLINE,stdin)!=NULL;i++)
+      {
+        int n=strlen(line);
+        line[n-1]='\0';
+        names[i]=string_clone(line);
+      }
+    return i;
+  }
+  void string_print(char* names[],int low ,int high)
+  {
+    for(int i=low;i<high;i++)
+      {
+        printf("%s,  ",names[i]);
+      }
+    printf("\n");
+  }
+
+  int binary_partition(char* m[],char n[],int low,int high)
+  {
+    char* t;
+    t=(char*)malloc(strlen(n));
+    strcpy(t,n);
+    int mid=(low+high)/2;
+    while(low!=high){
+      if(strcmp(t,m[mid])==0)
+        return mid;
+      else if(strcmp(t,m[mid])<0)
+        {
+          high=mid;
+        }
+      else
+        {
+          low=mid+1;
+        }
+      mid=(low+high)/2;
+    }
+    return high;
+  }
+
+  int main()
+  {
+    char* names[N];
+    int n=strings_read(names);
+    string_print(names,0,n);
+    int r=binary_partition(names,"mouse",0,n);
+    printf("%d\n",r);
+    return 0;
+  }
+#+END_SRC
+
+
+
+** Test
+*** Input
+#+BEGIN_EXAMPLE
+apple
+banana
+car
+dog
+hockey
+mouse
+packets
+probability
+queue
+time
+watch
+
+#+END_EXAMPLE
+*** Output
+#+RESULTS:
+#+RESULTS:
+| apple, | banana, | car, | dog, | hockey, | mouse, | packets, | probability, | queue, | time, | watch, | , |
+|      5 |         |      |      |         |        |          |              |        |       |        |   |
+
+* Insert a target string in the right position in a sorted array of strings:
+Using binary_partition() find the “right” position of a target string in an array of sorted strings. Write a function shift_right() to shift the strings to the right of the target’s position to make room for the target. Insert the target so that new array remains sorted.
+ 
+** Program design:
+This program has 4 functions:
+        1. string_print(names[],low ,high)
+	2. binary_partition(m[],n[],low,high)
+	3. shift_right(names[],r,n,add[])
+	4. main()
+
+** Program:
+#+LATEX: \linespread{1}
+#+BEGIN_SRC C :cmdline <ex08_5.in
+  #include<stdio.h>
+  #include<stdlib.h>
+  #include<string.h>
+  #define N 100
+  #define MAXLINE 100
+  char* string_clone(char s[])
+  {
+    char* t=(char*)malloc(strlen(s));
+    strcpy(t,s);
+    return t;
+  }
+  int strings_read(char* names[])
+  {
+    char line[MAXLINE];
+    int i;
+    for(i=0;fgets(line,MAXLINE,stdin)!=NULL;i++)
+      {
+        int n=strlen(line);
+            line[n-1]='\0';
+            names[i]=string_clone(line);
+      }
+    return i;
+  }
+  void string_print(char* names[],int low ,int high)
+  {
+    for(int i=low;i<high;i++)
+      {
+        printf("%s ,  ",names[i]);
+      }
+    printf("\n");
+  }
+  void insert(char* a[], char k[],int r,int* n)
+  {
+    int i=*n-1;
+    while(i>=r)
+      {
+        a[i+1]=a[i];
+        i--;
+      }
+    a[r]=(char*)malloc(strlen(k)+1);
+    strcpy(a[r],k);
+    (*n)++;
+  }
+
+  int binary_partition(char* m[],char n[],int low,int high)
+  {
+    char* t;
+    t=(char*)malloc(strlen(n));
+    strcpy(t,n);
+    int mid=(low+high)/2;
+    while(low!=high){
+      if(strcmp(t,m[mid])<0)
+        {
+          high=mid;
+        }
+      else
+        {
+          low=mid+1;
+        }
+      mid=(low+high)/2;
+    }
+    return mid;
+  }
+
+  int main()
+  {
+    char* names[N];
+    int n=strings_read(names);
+    string_print(names,0,n);
+    int r=binary_partition(names,"scanner",0,n);
+    insert(names,"scanner",r,&n);
+    string_print(names,0,n);
+    return 0;
+  }
+#+END_SRC
+
+#+RESULTS:
+| apple | banana | car | dog | hockey | mouse | packets | probability | queue | time    | watch |       |   |
+| apple | banana | car | dog | hockey | mouse | packets | probability | queue | scanner | time  | watch |   |
+
+
+** Test
+*** input
+#+BEGIN_EXAMPLE
+apple
+banana
+car
+dog
+hockey
+mouse
+packets
+probability
+queue
+time
+watch
+
+#+END_EXAMPLE
+*** Output
+#+RESULTS:
+| apple | banana | car | dog | hockey | mouse | packets | probability | queue | time    | watch |       |   |
+| apple | banana | car | dog | hockey | mouse | packets | probability | queue | scanner | time  | watch |   |
+

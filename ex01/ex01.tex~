@@ -1,0 +1,637 @@
+% Created 2018-07-21 Sat 22:44
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{palatino}
+\usepackage[top=1in,bottom=1.25in,left=1.25in,right=1.25in]{geometry}
+\usepackage{setspace}
+\setcounter{secnumdepth}{1}
+\author{PRAVEEN KUMAR R}
+\date{30/01/2018}
+\title{Exercise 1: Simple Programs}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 25.2.2 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+\begin{center}
+\begin{tabular}{ll}
+Assignment & 1\\
+Reg No & 312217104114\\
+Name & PRAVEEN KUMAR R\\
+Grade & \\
+Date & \\
+\end{tabular}
+\end{center}
+
+\section{Home work}
+\label{sec-1}
+
+\subsection*{Objective}
+\label{sec-1-1}
+To gain some familiarity with variables, assignment, output
+statement, control flow, functions, and arrays in C.
+
+\subsection*{Output (printf) statements}
+\label{sec-1-2}
+Write a program to print this text, with the second and the fourth
+lines indended, on the stdout.
+\begin{verbatim}
+The heights by great men reached and kept
+   Were not attained by sudden flight,
+But they, while their companions slept,
+   Were toiling upward in the night.
+\end{verbatim}
+
+\begin{enumerate}
+\item Create a new program file \texttt{longfellow.c} in emacs. Edit your
+program.
+\item Create a makefile to compile your source program file
+\texttt{longfellow.c}, compile it to an executable program
+\texttt{longfellow}.
+\item If there are any errors as you compile, fix them.
+\item List the errors which occurred.
+\end{enumerate}
+\subsubsection*{Program}
+\label{sec-1-2-1}
+\begin{verbatim}
+#include<stdio.h>
+int main()
+{
+  char a[100];
+  int i=0;
+  while(fgets(a,100,stdin)!=NULL)
+    {
+      if(i%2==1)
+	printf("\t");
+      printf("%s",a);
+      i++;
+    }
+
+  return 0;
+}
+\end{verbatim}
+\subsubsection*{Test}
+\label{sec-1-2-2}
+\begin{itemize}
+\item \textbf{Input}
+\end{itemize}
+\begin{verbatim}
+The heights by great men reached and kept
+Were not attained by sudden flight,
+But they, while their companions slept,
+Were toiling upward in the night.
+\end{verbatim}
+
+\begin{itemize}
+\item \textbf{Output}
+\begin{center}
+\begin{tabular}{llllllll}
+The & heights & by & great & men & reached & and & kept\\
+ & Were & not & attained & by & sudden & flight, & \\
+But & they, & while & their & companions & slept, &  & \\
+ & Were & toiling & upward & in & the & night. & \\
+\end{tabular}
+\end{center}
+\end{itemize}
+
+\subsection*{Minimum of three numbers}
+\label{sec-1-3}
+Write a program \texttt{min2.c} to read two numbers from stdin and print
+the smallest of the two numbers.
+\begin{enumerate}
+\item Implement the functionality in \texttt{main()}.
+\item Divide your program into \texttt{main()} and another function
+\texttt{min2()}. Function \texttt{min2()} takes two numbers as inputs and
+returns as output the minimum of the two inputs.
+\item Design a function \texttt{min3()} that takes three numbers as inputs
+and returns as output the minimum of the three inputs.
+\item Design \texttt{min3()} in at least three different ways. Make one
+comment, good or bad, about each of the designs.
+\end{enumerate}
+\subsubsection*{Program}
+\label{sec-1-3-1}
+\begin{verbatim}
+#include<stdio.h>
+int min2(int a,int b)
+{
+  return a>b?b:a;
+}
+int min3(int a,int b,int c)
+{
+  return a<min2(b,c)?a:min2(b,c);
+}
+int main()
+{
+  int a,b,c;
+  scanf("%d%d%d",&a,&b,&c);
+  printf("%d",min3(a,b,c));
+  return 0;
+}
+\end{verbatim}
+\subsubsection*{Test}
+\label{sec-1-3-2}
+\begin{itemize}
+\item \textbf{Input}
+\end{itemize}
+\begin{verbatim}
+34 56 76
+\end{verbatim}
+
+\begin{itemize}
+\item \textbf{Output}
+\end{itemize}
+
+\begin{verbatim}
+34
+\end{verbatim}
+
+\subsection*{Power $x^n$}
+\label{sec-1-4}
+Construct a program \texttt{power.c}.
+\begin{enumerate}
+\item A number $b$ raised to the power $m$, $b^m$, can be calculated
+by cumulatively multiplying 1 by $b$, $m$ times. For example, if
+$b = 2$ and $m = 5$, then the process for calculating $b^m =
+      2^5$ proceeds as shown in the table below:
+\begin{center}
+\begin{tabular}{ll}
+p & p * 2\\
+\hline
+1 & \\
+2$^{\text{1}}$ & 1 * 2\\
+2$^{\text{2}}$ & 2$^{\text{1}}$ * 2\\
+2$^{\text{3}}$ & 2$^{\text{2}}$ * 2\\
+2$^{\text{4}}$ & 2$^{\text{3}}$ * 2\\
+2$^{\text{5}}$ & 2$^{\text{4}}$ * 2\\
+\end{tabular}
+\end{center}
+Implement a program to calculate the power $b^m$. Hardcode $b$
+and $m$ into your program (no need to read them from the
+user). Print the output, for example, as \verb~2^5 = 32~.
+\end{enumerate}
+\subsubsection*{Program}
+\label{sec-1-4-1}
+\begin{verbatim}
+#include<stdio.h>
+int power(int a,int n);
+int power(int a,int n)
+{
+  if(n==1)
+    return a;
+  if(n%2==0)
+    {
+      int p=power(a,n/2);
+      return p*p;
+    }
+  else
+    return a*power(a,n-1);
+}
+int main()
+{
+  int a=7,n=6;
+  printf("%d^%d=%d",a,n,power(a,n));
+  return 0;
+}
+\end{verbatim}
+
+\subsubsection*{Test}
+\label{sec-1-4-2}
+\begin{center}
+\begin{tabular}{l}
+7$^{\text{6}}$=117649\\
+\end{tabular}
+\end{center}
+
+
+\begin{enumerate}
+\item Read $b$ and $m$ from the user (stdin) for the power
+program. First, print a prompt message to the user:
+\begin{verbatim}
+Enter the base and the exponent:
+\end{verbatim}
+
+\item Define a function \texttt{power(x, n)} that raises $x$ to the power
+$n$. It takes \texttt{x} and \texttt{n} as parameters and returns the power
+$x^n$ as the result. Write the code for \texttt{power()} before
+\texttt{main()}. Call \texttt{power()} from \texttt{main()}.
+\item Write the code for \texttt{power()} \emph{after} \texttt{main()} and see the errors
+reported. Fix it: Let the code for \texttt{power()} be after
+\texttt{main()}. But write the prototype of \texttt{power()} before \texttt{main()}.
+\item In \texttt{power(x, n)}, instead of using a variable to count the
+number of iterations completed, use the parameter \texttt{n} to count
+the number iterations left to terminate the loop.
+\end{enumerate}
+\subsubsection*{Program}
+\label{sec-1-4-3}
+\begin{verbatim}
+#include<stdio.h>
+ int power(int a,int n);
+ int power(int a,int n)
+ {
+   if(n==1)
+     return a;
+   if(n%2==0)
+     {
+       int p=power(a,n/2);
+       return p*p;
+     }
+   else
+     return a*power(a,n-1);
+ }
+ int main()
+ {
+   int a,n;
+   scanf("%d%d",&a,&n);
+   printf("%d^%d=%d",a,n,power(a,n));
+   return 0;
+ }
+\end{verbatim}
+\subsubsection*{Test}
+\label{sec-1-4-4}
+\begin{center}
+\begin{tabular}{l}
+4$^{\text{6}}$=4096\\
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item List four idioms for repeating a loop $n$ times.
+\end{enumerate}
+\textbf{Example 1}
+\begin{verbatim}
+int i=0;]
+while(i<n)
+   i++;
+\end{verbatim}
+\textbf{Example 2}
+\begin{verbatim}
+for(int i=0;i<n;i++);
+\end{verbatim}
+\textbf{Example 3}
+\begin{verbatim}
+int i=n-1;
+while(i>=0)
+   i--;
+\end{verbatim}
+\textbf{Example 4}
+\begin{verbatim}
+for(int i=n-1;i>=0;i--);
+\end{verbatim}
+\begin{enumerate}
+\item Pass a negative exponent to \texttt{power()}. What is the error that
+occurs in the run time? Rename \texttt{power()} as \texttt{pos\_power()} and
+write a function \texttt{power()} that works correctly for any integer
+exponent, positive or negative.
+\end{enumerate}
+\subsubsection*{Program}
+\label{sec-1-4-5}
+\begin{verbatim}
+#include<stdio.h>
+ float power(float a,float n);
+ float power(float a,float n)
+ {
+   if(n==1)
+     return a;
+   if((int)n%2==0)
+     {
+       int p=power(a,n/2);
+       return p*p;
+     }
+   else
+     return a*power(a,n-1);
+ }
+ int main()
+ {
+   float a,n,p;
+   scanf("%f%f",&a,&n);
+    p=power(a,n<0?-n:n);
+   if(n<0)
+     p=1/p;
+   printf("%0.0f^%0.0f=%f",a,n,p);
+   return 0;
+ }
+\end{verbatim}
+\subsubsection*{Test}
+\label{sec-1-4-6}
+\begin{center}
+\begin{tabular}{l}
+3$^{\text{-5}}$=0.004115\\
+\end{tabular}
+\end{center}
+
+\subsection*{Table of powers}
+\label{sec-1-5}
+Populate a table with powers $b^m$ for a given range of $m$.
+\begin{enumerate}
+\item Modify your program \texttt{main()} to print powers $b^m$ for a number
+$b$ for powers from 0 to 20. Read \texttt{b} and \texttt{m} from the
+user. Format the output as shown below.
+\begin{verbatim}
+2^0  =       1
+2^1  =       2
+2^2  =       4
+2^3  =       8
+2^4  =      16
+...
+2^20 = 1048576
+\end{verbatim}
+\end{enumerate}
+\subsubsection*{Program}
+\label{sec-1-5-1}
+\begin{verbatim}
+#include<stdio.h>
+int main()
+{
+  long int a,n,p=1;
+  scanf("%ld%ld",&a,&n);
+  for(int i=0;i<=n;i++)
+      {
+	printf("%ld^%d=%ld\n",a,i,p);
+	p=p*a;
+      }
+}
+\end{verbatim}
+\subsubsection*{Test}
+\label{sec-1-5-2}
+\begin{itemize}
+\item \textbf{Input}
+\end{itemize}
+\begin{verbatim}
+3 15
+\end{verbatim}
+\begin{itemize}
+\item \textbf{Output}
+\end{itemize}
+\begin{center}
+\begin{tabular}{l}
+3$^{\text{0}}$=1\\
+3$^{\text{1}}$=3\\
+3$^{\text{2}}$=9\\
+3$^{\text{3}}$=27\\
+3$^{\text{4}}$=81\\
+3$^{\text{5}}$=243\\
+3$^{\text{6}}$=729\\
+3$^{\text{7}}$=2187\\
+3$^{\text{8}}$=6561\\
+3$^{\text{9}}$=19683\\
+3$^{\text{10}}$=59049\\
+3$^{\text{11}}$=177147\\
+3$^{\text{12}}$=531441\\
+3$^{\text{13}}$=1594323\\
+3$^{\text{14}}$=4782969\\
+3$^{\text{15}}$=14348907\\
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item Declare an array of 100 numbers.  Store 10 numbers in the
+array. Write a function \texttt{print\_array()} to print a
+subarray. The function takes three parameters, the array name
+\texttt{a}, the lower bound \texttt{low}, and the upper bound \texttt{high} of the
+subarray. Remember that the upper bound is open --- the
+subarray \texttt{a[low:high]} consists of \texttt{a[low] ... a[high-1]}
+(\texttt{a[high]} is not a part of the subarray). Drive
+\texttt{print\_array()} from \texttt{main()}.
+\end{enumerate}
+\subsubsection*{Program}
+\label{sec-1-5-3}
+\begin{verbatim}
+#include<stdio.h>
+void print_array(int a[], int low, int high);
+void print_array(int a[], int low, int high)
+{
+  printf("{");
+  for(int i=low;i<high;i++)
+    printf("%d %c ",a[i],i<high-1?',':' ');
+  printf("}");
+}
+int main()
+{
+  int a[100]={0,2,4,6,8,10,12,14,16,18};
+  print_array(a,2,8);
+}
+\end{verbatim}
+\subsubsection*{Test}
+\label{sec-1-5-4}
+\begin{center}
+\begin{tabular}{lrrrrl}
+\{4 & 6 & 8 & 10 & 12 & 14   \}\\
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item Fill the subarray \texttt{a[0]...a[20]} with $2^0$ to $2^{20}$. Print
+it.
+\end{enumerate}
+\subsubsection*{Program}
+\label{sec-1-5-5}
+\begin{verbatim}
+#include<stdio.h>
+ int main()
+ {
+   long int a=2,n=20,p=1,m[100];
+   for(int i=0;i<=n;i++)
+     {
+       m[i]=p;
+       p=p*a;
+     }
+   for(int i=0;i<=n;i++)
+       {
+	 printf("%d\n",m[i]);
+       }
+ }
+\end{verbatim}
+
+\begin{enumerate}
+\item Fill the subarray \texttt{a[0]...a[20]} with $2^{-10}$ to
+$2^{10}$. Print it.
+\end{enumerate}
+\begin{verbatim}
+#include<stdio.h>
+ float power(float a,int n);
+ float power(float a,int n)
+ {
+   if(n==0)
+     return 1;
+   if(n%2==0)
+     {
+      float p=power(a,n/2);
+       return p*p;
+     }
+   else
+     return a*power(a,n-1);
+ }
+ int main()
+ {
+   int k=0;
+   float a=2,n=10,p,m[21];
+   for(int i=-10;i<=n;i++)
+     {
+       p=power(a,(i<0?-i:i));
+       if(i<0)
+	 p=1/p;
+       m[k++]=p;
+     }
+   for(int i=0;i<k;i++)
+     printf("%f \n",m[i]);
+   return 0;
+ }
+\end{verbatim}
+\subsubsection*{Test}
+\label{sec-1-5-6}
+\begin{center}
+\begin{tabular}{r}
+0.000977\\
+0.001953\\
+0.003906\\
+0.007812\\
+0.015625\\
+0.03125\\
+0.0625\\
+0.125\\
+0.25\\
+0.5\\
+1.0\\
+2.0\\
+4.0\\
+8.0\\
+16.0\\
+32.0\\
+64.0\\
+128.0\\
+256.0\\
+512.0\\
+1024.0\\
+\end{tabular}
+\end{center}
+
+\section{Questions}
+\label{sec-2}
+Answer the following questions.
+\begin{enumerate}
+\item How many lines are printed by \texttt{printf("Hello,\textbackslash{}nworld!\textbackslash{}nBye,\textbackslash{}nworld!")}?
+\begin{enumerate}
+\item 1
+\item 2
+\item 3
+\item 4
+\end{enumerate}
+Answer:4
+\item What is the output?
+\begin{verbatim}
+a = 5; b = 10;
+a = b;
+b = a;
+printf ("a = %d, b = %d\n", a, b);
+\end{verbatim}
+Answer: a=10, b=10
+
+\item What is the output? What does the code do?
+\begin{verbatim}
+a = 5; b = 10;
+a = a+b;
+b = a-b;
+a = a-b;
+printf ("a = %d, b = %d\n", a, b);
+\end{verbatim}
+Answer: a = 10, b = 5
+
+\item What is the output? What does the code do?
+\begin{verbatim}
+a = 5; b = 10; c = 15;
+t = a;
+a = b;
+b = c;
+c = t;
+printf ("a = %d, b = %d, c = %d\n", a, b, c);
+\end{verbatim}
+Answer: a=10, b=15, c=5
+
+\item Translate the expression $d = \sqrt{b^2 - 4ac}$ into C statement.\\
+
+Answer: d= sqrt(b*b-4*a*c);
+
+\item Translate the expression $d = \sqrt{(x_1 - x_2)^2 + (y_1 -
+     y_2)^2}$ into C statement.\\
+
+Answer: d= sqrt(pow(x$_{\text{1}}$-x$_{\text{2}}$,2)+pow((y$_{\text{1}}$-y$_{\text{2}}$),2));
+
+\item What is the output?
+\begin{verbatim}
+a = 5; b = 10;
+m = a;
+if (b < m)
+   m = b;
+printf ("%d\n", m);
+\end{verbatim}
+Answer: 5
+\item What is the output?
+\begin{verbatim}
+mark = 40;
+if (mark < 50)
+  grade = 'E';
+if (mark < 60)
+  grade = 'D';
+if (mark < 70)
+  grade = 'C'
+printf ("%c\n", grade);
+\end{verbatim}
+Answer: C
+\item Trace the process generated by the loop
+\begin{verbatim}
+n = 5;
+f = 1; i = 0;
+while (i < n) {
+  f = f * i;
+  i = i + 1;
+}
+\end{verbatim}
+Answer:
+\begin{center}
+\begin{tabular}{llll}
+i & f & i+1 & f*i\\
+ &  &  & \\
+\end{tabular}
+\end{center}
+\item Write a loop (while statement) which will generate the process shown in the table.
+\begin{center}
+\begin{tabular}{rrll}
+q & r & r - 5 & q + 1\\
+0 & 22 &  & \\
+1 & 17 & 22 - 5 & 0 + 1\\
+2 & 12 & 17 - 5 & 1 + 1\\
+3 & 7 & 12 - 5 & 2 + 1\\
+4 & 2 & 7 - 2 & 3 + 1\\
+ &  &  & \\
+\end{tabular}
+\end{center}
+Answer:
+\begin{verbatim}
+r = 22;
+q = 0;
+while(r-5>0)
+ {
+    r=r-5;
+    q=q+1;
+ }
+\end{verbatim}
+\end{enumerate}
+% Emacs 25.2.2 (Org mode 8.2.10)
+\end{document}

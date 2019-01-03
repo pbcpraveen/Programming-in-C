@@ -1,0 +1,69 @@
+#+TITLE: Exercise 10: Files
+#+AUTHOR: S Milton Rajendram
+#+EMAIL:  miltonrs@ssn.edu.in
+#+DATE:   9-13 April 2018 (Mon-Thurs)
+
+#+STARTUP: showeverything
+#+LATEX_HEADER: \usepackage{palatino}
+#+LATEX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LATEX_HEADER: \usepackage{setspace}
+#+LATEX: \linespread{1.2}
+#+PROPERTY: header-args :exports code
+#+OPTIONS: toc:nil
+
+#+LATEX: \linespread{1.5}
+
+* Read from file
+1. =telephone.in= is a file.  It is a sequence of
+   lines. Each line has two fields, separated by =|=
+   character. 
+   1. Number
+   2. Name
+   #+LATEX: \linespread{1}
+   #+BEGIN_EXAMPLE
+   |JYOTHISHMATHI C V|217104066|
+   |KAILASHWAR N|217104067|
+   |KANDAVEL A|217104068|
+   |KANISHQ S|217104069|
+   #+END_EXAMPLE
+   #+LATEX: \linespread{1.5}
+2. Define =Entry= as a structure composed of =number= and
+   =name=. Define an array of pointers to =Entry=
+   structures. 
+3. Write a function =read_telephones()= that reads the file
+   and converts each line to an =Entry= structure, and
+   stores them in the array of pointers to =Entry=
+   structures.
+4. Write a function =print_entries()= to display the entries
+   in the array to =stdout=. 
+
+* Search for an entry
+1. Define a function =search_number()= that searches for a given
+   number and prints the number and the name.
+2. Define a function =search_name()= that searches for a given
+   name and prints the number and the name. You can search
+   for a substring using the library function =strstr()=.
+
+* Insert an entry
+Write a function =insert_entry()= that reads a name and number
+from the user and adds it to the array. If the number
+already exists, it should not be inserted.
+
+* Delete an entry
+Write a function =delete_entry()= that reads a number from
+the user and deletes it from the array. When you delete an
+entry, pack the array by moving the subsequent entries up.
+
+* Interactive loop
+Write a loop that interacts with the user: It reads one of
+the options from the user and performs the function.
+#+BEGIN_EXAMPLE
+q quit 
+s number (search for a number)
+f name (search for a name)
+i number name (insert an entry (number, name))
+d number (delete the entry with the number)
+#+END_EXAMPLE 
+When the program quits, the array of =Entry= structures
+should be written to the =telephone.in= file.
+

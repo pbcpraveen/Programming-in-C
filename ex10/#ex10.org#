@@ -1,0 +1,57 @@
+#+TITLE: Exercise 10: Structures
+#+AUTHOR: PRAVEEN KUMAR R
+#+DATE: 10/04/18
+
+#+LaTex_HEADER: \usepackage{palatino}
+#+LaTex_HEADER: \usepackage[top=1in,bottom=1.25in,left=1.25in,right=1.25in]{geometry}
+#+LaTex_HEADER: \usepackage{setspace}
+#+OPTIONS: toc:nil
+#+STARTUP: showeverything
+
+#+BEGIN_EXPORT latex
+\linespread{1.2}
+#+END_EXPORT
+#+PROPERTY: header-args :exports both
+
+| Assignment |              10 |
+| Reg No     |    312217104114 |
+| Name       | PRAVEEN KUMAR R |
+| Grade      |                 |
+| Date       |      19-02-2018 |
+
+
+* Array of structures
+** Problem description
+
+1. Define a structure to represent students. It should store 3 ut marks for a subject and
+   the final internal mark for that subject.
+#+BEGIN_EXAMPLE
+    struct student {
+      int rollnum;
+      char name[100];
+      int ut[4];
+    };
+#+END_EXAMPLE
+ 
+   Write functions to create a student structure and initialzie it. Write a function to print
+   a student struture.
+2. Read the roll numbers, names and ut marks for 3 unit tests for 10 students from stdin.
+3. Write a function to calculate the final internal mark for each students.
+4. Modify the structure to store the ut marks and internal mark in 5 subjects. Write a
+   function to compute internal marks of students for 5 different subjects.
+
+#+BEGIN_SRC 
+#include<stdio.h>
+struct student{
+ int rollnum;
+ char name[100];
+ int ut[4];
+};
+typedef struct student Student;
+Student initialise(int roll,char)
+{
+ Student s=
+}
+
+
+#+END_SRC

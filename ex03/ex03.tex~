@@ -1,0 +1,776 @@
+% Created 2018-04-14 Sat 23:31
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{palatino}
+\usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+\usepackage{setspace}
+\setcounter{secnumdepth}{1}
+\author{PRAVEEN KUMAR R}
+\date{20-02-2018}
+\title{Exercise 3: Conditional and Alternative statements}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.5.1 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+%\linespread{1.2}
+\section{24 hour format}
+\label{sec-1}
+Write a program to get a time in 24 hour format and convert it to a 12 hour format
+\subsection*{Program Design}
+\label{sec-1-1}
+The program consists of \texttt{main()}, which gets the input of time from \texttt{stdin}, 
+converts it to 12 hour format and prints the result on \texttt{stdout}.
+\subsection*{Algorithm}
+\label{sec-1-2}
+def func(h,m,s):
+  if h<=12:
+    if h==12:
+      print("\%d:\%d:\%d pm\n",h,m,s)
+    else
+      print("\%d:\%d:\%d am\n",h,m,s)
+  else
+    if h==24:
+      print("\%d:\%d:\%d am\n",h-24,m,s)
+    else
+      print("\%d:\%d:\%d pm\n",h-12,m,s)
+
+\subsection*{Source Code:}
+\label{sec-1-3}
+
+\begin{verbatim}
+#include<stdio.h>
+int main()
+{
+  int h,m,s;
+  scanf("%d%d%d",&h,&m,&s);
+  printf("%d:%d:%d %s",h<13?h:h-12,m,s,h<13?"am":"pm");  
+}
+\end{verbatim}
+
+\subsection*{Test Input:}
+\label{sec-1-4}
+\begin{verbatim}
+23 15 45
+\end{verbatim}
+\subsection*{Output:}
+\label{sec-1-5}
+\begin{verbatim}
+11:15:45 pm
+\end{verbatim}
+
+\section{Time Comparison}
+\label{sec-2}
+Write a function to accept 2 time in hours minutes and seconds and compare which time 
+is earlier.
+\subsection*{Program Design}
+\label{sec-2-1}
+The program consists of \texttt{main()}, which gets the input from \texttt{stdin}, compares the
+times and prints the result on \texttt{stdout}.
+\subsection*{Algorithm}
+\label{sec-2-2}
+
+\begin{verbatim}
+def func(h1,m1,s1,h2,m2,s2):
+  if h1>h2:
+    print("t1 is earlier")
+  elif h1<h2:
+    print("t2 is earlier")
+  else
+    if m1>m2:
+      print("t1 is earlier")
+    elif m1<m2:
+      print("t2 is earlier")
+    else:
+      if s1>s2:
+        print("t1 is earlier")
+      elif s1<s2:
+        print("t2 is earlier")
+      else:
+        print("Both are same")
+\end{verbatim}
+\subsection*{Source Code:}
+\label{sec-2-3}
+\begin{verbatim}
+#include<stdio.h>
+int compare(int h1,int m1,int s1,int h2,int m2,int s2)
+{
+  if(h1<h2)
+    {
+      return -1;
+    }
+  else if(h1>h2)
+    {
+      return 1;
+    }
+  else
+    {
+      if(m1>m2)
+	{
+	  return 1;
+	}
+      else if(m1<m2)
+	{
+	  return -1;
+	}
+      else
+	{
+	  if(s1>s2)
+	    {
+	      return 1;
+	    }
+	  else if(s1<s2)
+	    {
+	      return -1;
+	    }
+	  else
+	    {
+	      return 0;
+	    }
+	}     
+    }
+}
+int main()
+{
+  int h1,m1,s1,h2,m2,s2;
+  scanf("%d%d%d",&h1,&m1,&s1);
+  scanf("%d%d%d",&h2,&m2,&s2);
+  printf("%d %d %d\t%d %d %d\n",h1,m1,s1,h2,m2,s2);
+  printf("%d ",compare(h1,m1,s1,h2,m2,s2);
+  return 0;
+}
+\end{verbatim}
+
+\subsection*{Test Input:}
+\label{sec-2-4}
+\begin{verbatim}
+14 6 34  14 6 33
+\end{verbatim}
+\subsection*{Output:}
+\label{sec-2-5}
+\begin{verbatim}
+-1          
+\end{verbatim}
+
+\section{Time difference}
+\label{sec-3}
+Write a program to calculate the time difference between the two 
+time the user enters and print it
+\subsection*{Specification}
+\label{sec-3-1}
+A function \texttt{sign()}, which takes an integer as the input and returns
+it's sign to the calling function.
+\subsection*{Prototype}
+\label{sec-3-2}
+\begin{verbatim}
+int sign(int a);
+\end{verbatim}
+\subsection*{Program Design}
+\label{sec-3-3}
+The program consists a function \texttt{sign(int a)}, which returns the 
+sign of the integer, and \texttt{main()}, which gets the input from \texttt{stdin},
+calls the function and prints the rsult accordingly on \texttt{stdout}.
+\subsection*{Algorithm}
+\label{sec-3-4}
+\begin{verbatim}
+def sign(a):
+  if a>=0:
+    return 1
+  else
+    return -1
+\end{verbatim}
+\subsection*{Sorce Code}
+\label{sec-3-5}
+
+\begin{verbatim}
+#include<stdio.h>
+
+int sign(int a){
+  if(a>=0){
+    return 1;
+  }
+  else{
+    return -1;
+  }
+}
+
+int main(){
+  int a,b,c,d,e,f,g,h,i;
+  scanf("%d%d%d",&a,&b,&c);
+  scanf("%d%d%d",&d,&e,&f);
+  g=sign(a-d);
+  h=sign(b-e);
+  i=sign(c-f);
+  if(g>0){
+    if(h>0 && i>0){
+      printf("%d:%d:%d\n",a-d,b-e,c-f);
+    }
+    else if(h>0 && i<0){
+      printf("%d:%d:%d\n",a-d,b-e,f-c);
+    }
+    else if(h<0 && i>0){
+      printf("%d:%d:%d\n",a-d,e-b,c-f);
+    }
+    else{
+      printf("%d:%d:%d\n",a-d,e-b,f-c);
+    }  
+  }
+  else{
+    if(h>0 && i>0){
+      printf("%d:%d:%d\n",d-a,b-e,c-f);
+    }
+    else if(h>0 && i<0){
+      printf("%d:%d:%d\n",d-a,b-e,f-c);
+    }
+    else if(h<0 && i>0){
+      printf("%d:%d:%d\n",d-a,e-b,c-f);
+    }
+    else{
+      printf("%d:%d:%d\n",d-a,e-b,f-c);
+    }  
+  }
+}
+\end{verbatim}
+
+\subsection*{Test Input}
+\label{sec-3-6}
+\begin{verbatim}
+14 6 34        14 6 33
+\end{verbatim}
+\subsection*{Output}
+\label{sec-3-7}
+\begin{verbatim}
+0 0 1                 
+\end{verbatim}
+
+\section{Smallest and largest of 4 numbers}
+\label{sec-4}
+Write a program to find the smallest and largest number out of the 4 numbers entered 
+from the standard input
+\subsection*{Specification}
+\label{sec-4-1}
+2 functions \texttt{min2()} and \texttt{max2()}, which take 2 integers as the input and returns
+the minimum and maximum of the two to the calling function respectively.
+\subsection*{Prototype}
+\label{sec-4-2}
+\begin{verbatim}
+int min2(int a, int b);
+int max2(int a, int b);
+\end{verbatim}
+\subsection*{Program Design}
+\label{sec-4-3}
+The program consists of 2 functions \texttt{min2(int a, int b)} and \texttt{max2(int a, int b)}
+which returns the minimum and maximum of the 2 numbers, and \texttt{main()}, which
+gets the input from \texttt{stdin}, calls the functions, and prints the result on \texttt{stdout}.
+\subsection*{Algorithm}
+\label{sec-4-4}
+\begin{verbatim}
+def min2(a,b):
+  if a>b:
+    return b
+  else:
+    return a
+def max2(a,b):
+  if a<b:
+    return b
+  else:
+    return a
+\end{verbatim}
+\subsection*{Source Code}
+\label{sec-4-5}
+
+\begin{verbatim}
+#include<stdio.h>
+int min2(int a, int b){
+  if(a>b){
+    return b;
+  }
+  else{
+    return a;
+  }
+}
+
+int max2(int a, int b){
+  if(a<b){
+    return b;
+  }
+  else{
+    return a;
+  }
+}
+
+int main(){
+  int a,b,c,d,m,n;
+  scanf("%d%d%d%d",&a, &b, &c, &d);
+  m=min2(a,b);
+  m=min2(m,c);
+  m=min2(m,d);
+  n=max2(a,b);
+  n=max2(n,c);
+  n=max2(n,d);
+  printf("%d,%d\n",m,n);
+}
+\end{verbatim}
+
+\subsection*{Test Input}
+\label{sec-4-6}
+\begin{verbatim}
+-98 56 928 -999
+\end{verbatim}
+\subsection*{Output}
+\label{sec-4-7}
+\begin{verbatim}
+-999 928
+\end{verbatim}
+
+\section{Grades}
+\label{sec-5}
+Write a function \texttt{grades()} to translate the marks of a student in various subjects 
+into letter grades and print the grades on the output.
+\begin{center}
+\begin{tabular}{rrl}
+Mark range & Grade points & Leter grade\\
+91-100 & 10 & S\\
+81-90 & 9 & A\\
+71-80 & 8 & B\\
+61-70 & 7 & C\\
+57-60 & 6 & D\\
+51-56 & 5 & E\\
+<50 & 0 & U\\
+\end{tabular}
+\end{center}
+\subsection*{Specification}
+\label{sec-5-1}
+A function \texttt{grade()}, which gets the mark as the input and returns a grade as 
+character to the calling function.
+\subsection*{Prototype}
+\label{sec-5-2}
+\begin{verbatim}
+char grade(int x);
+\end{verbatim}
+\subsection*{Program Design}
+\label{sec-5-3}
+The program consists of a function \texttt{grade(int x)}, which returns a grade as a 
+character based on the mark, and \texttt{main()}, which gets the input from \texttt{stdin},
+calls the function and prints the result on \texttt{stdout}.
+\subsection*{Algorithm}
+\label{sec-5-4}
+\begin{verbatim}
+def grade(x):
+  if x>90:
+    return 's'
+  elif x>80:
+    return 'a'
+  elif x>70:
+    return 'b'
+  elif x>60:
+    return 'c'
+  elif x>56:
+    return 'd'
+  elif x>50:
+    return 'e'
+  else:
+    return 'u'
+\end{verbatim}
+\subsection*{Source Code}
+\label{sec-5-5}
+
+\begin{verbatim}
+#include<stdio.h>
+char grade(int x){
+  if(x>90){
+    return 'S';
+  }
+  else if(x>80){
+    return 'A';
+  }
+  else if(x>70){
+    return 'B';
+  }
+  else if(x>60){
+    return 'C';
+  }
+  else if(x>56){
+    return 'D';
+  }
+  else if(x>50){
+    return 'E';
+  }
+  else{
+    return 'U';
+  }
+}  
+int main(){
+  int a[20],n;
+  char g;
+  scanf("%d",&n);
+  for(int i=0;i<n;i++){
+    scanf("%d",&a[i]);
+  }
+  for(int i=0;i<n;i++){
+    g=grade(a[i]);
+    printf("%c\n",g);
+  }
+}
+\end{verbatim}
+
+\subsection*{Test Input}
+\label{sec-5-6}
+\begin{verbatim}
+8
+94 56 33 78 81 99 100 66
+\end{verbatim}
+\subsection*{Output}
+\label{sec-5-7}
+\begin{verbatim}
+S 
+E 
+U 
+B 
+A 
+S
+S 
+C 
+\end{verbatim}
+
+\section{Tariff Calculator}
+\label{sec-6}
+Write a function \texttt{eb()} to find out the domestic eb bill based on the given slab rates
+\begin{enumerate}
+\item Consumption upto 100 units: free.
+\item Consumption above 100 units and upto 200 units: Rs 1.50 per unit.
+\item Consumption above 200 units and upto 500 units: Rs 2.00 per unit 
+for 101-200 units and Rs 3.00 per unit for 201-500 units.
+\item Consumption above 500 units: Rs 3.50 per unit for 101-200 units, 
+Rs 4.60 per unit for 201-500 units, and Rs 6.60 beyond 500 units.
+\end{enumerate}
+\subsection*{Specification}
+\label{sec-6-1}
+A function \texttt{eb()}, which takes the number of units as the input and returns the cost
+based on the conditions to the calling function.
+\subsection*{Prototype}
+\label{sec-6-2}
+\begin{verbatim}
+float eb(int unit);
+\end{verbatim}
+\subsection*{Program Design}
+\label{sec-6-3}
+The program consists of a function \texttt{eb(int unit)}, which returns the net cost, and \texttt{main()},
+which gets the input from \texttt{stdin}, calls the function and prints the result on \texttt{stdout}.
+\subsection*{Algorithm}
+\label{sec-6-4}
+\begin{verbatim}
+def eb(u):
+  if u<=100:
+    return 0
+  elif u>100 and u<=200:
+    return 1.5*u
+  elif u>200 and u<=500:
+    return (u-200)*3.0+(u-100)*2.0
+  else:
+    return (u-500)*6.6+(u-200)*4.6+(u-100)*3.5
+\end{verbatim}
+\subsection*{Source Code}
+\label{sec-6-5}
+
+\begin{verbatim}
+#include<stdio.h>
+float eb(int unit){
+  if(unit<=100){
+    return 0.0;
+  }
+  else if((unit>100)&&(unit<=200)){
+    return 1.5*unit;
+  }
+  else if((unit>200)&&(unit<=500)){
+    return(unit-200)*3.0+100*2.0;
+  }
+  else{
+    return (unit-500)*6.6+300*4.6+100*3.5;
+  }
+}
+int main(){
+  int unit;
+  float cost;
+  scanf("%d",&unit);
+  cost=eb(unit);
+  printf("%.4f\n",cost);
+}
+\end{verbatim}
+
+\subsection*{Test Input}
+\label{sec-6-6}
+\begin{verbatim}
+345
+\end{verbatim}
+\subsection*{Output}
+\label{sec-6-7}
+\begin{verbatim}
+635.0
+\end{verbatim}
+
+\section{Income Tax}
+\label{sec-7}
+Write a function \texttt{tax()} to calculate the income tax based on the age and the income 
+of the person
+\begin{enumerate}
+\item Income Tax Slab for Individual Tax Payers (Less Than 60 Years Old)
+\end{enumerate}
+\begin{center}
+\begin{tabular}{ll}
+Income Slab & Tax Rate\\
+Up to Rs.2,50,000 & No tax\\
+Rs.2,50,000 - Rs.5,00,000 & 5\%\\
+Rs.5,00,000 - Rs.10,00,000 & 20\%\\
+Rs.10,00,000 and beyond & 30\%\\
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\item Income Tax Slab for Senior Citizens (60 Years Old Or more but Less than 80 Years Old)
+\end{enumerate}
+\begin{center}
+\begin{tabular}{ll}
+Income Slab & Tax Rate\\
+Up to Rs.3,00,000 & No tax\\
+Rs.3,00,000 - Rs.5,00,000 & 5\%\\
+Rs.5,00,000 - Rs.10,00,000 & 20\%\\
+Rs.10,00,000 and beyond & 30\%\\
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\item Income Tax Slab for Senior Citizens (More than 80 years old)
+\end{enumerate}
+\begin{center}
+\begin{tabular}{ll}
+Income Slab & Tax Rate\\
+Up to Rs.2,50,000 & No tax\\
+Rs.2,50,000 - Rs.5,00,000 & No tax\\
+Rs.5,00,000 - Rs.10,00,000 & 20\%\\
+Rs.10,00,000 and beyond & 30\%\\
+\end{tabular}
+\end{center}
+Modify your function to take the age and the income as the parameters and calculate the tax.
+\subsection*{Specification}
+\label{sec-7-1}
+A function \texttt{tax()}, which gets the age and income as the inputs, checks the conditions
+and returns the value of tax to the calling function
+\subsection*{Prototype}
+\label{sec-7-2}
+\begin{verbatim}
+float tax(int age, int income);
+\end{verbatim}
+\subsection*{Program Design}
+\label{sec-7-3}
+The program consists of a function \texttt{tax(int age, int income)}, which returns the value
+of tax based on conditions, and \texttt{main()}, which gets the input from \texttt{stdin}, calls
+the function and prints the result on \texttt{stdout}.
+\subsection*{Algorithm}
+\label{sec-7-4}
+\begin{verbatim}
+def tax(age,income):
+  if(age<60):
+      if income<250000:
+        return 0.0
+      elif income>=250000 and income<500000:
+        return (5.0/100)*income
+      elif income>=500000 andincome<1000000:
+        return (20.0/100)*income
+      else:
+        return (30.0/100)*income
+    else ifage>=60 and age<80:
+      if income<300000;
+        return 0.0
+      elif income>=300000 and income<500000:
+        return (5.0/100)*income
+      elif income>=500000 and income<1000000:
+        return (20.0/100)*income
+      else:
+        return (30.0/100)*income
+    else:
+      if income<500000:
+        return 0.0
+      elif income>=500000 and income<1000000:
+        return (20.0/100)*income
+      else:
+        return(30.0/100)*income
+\end{verbatim}
+\subsection*{Source Code}
+\label{sec-7-5}
+
+\begin{verbatim}
+#include<stdio.h>
+float tax(int age, int income)
+{
+  if(age<60)
+    {
+      if(income<250000)
+      {
+	return 0.0;
+      }
+      else if((income>=250000)&&(income<500000))
+	{
+	  return (5.0/100)*income;
+	}
+      else if((income>=500000)&&(income<1000000))
+	{
+	  return (20.0/100)*income;
+	}
+      else
+	{
+	  return (30.0/100)*income;
+	}
+    }
+  else if((age>=60)&&(age<80))
+    {
+      if(income<300000)
+	{
+	  return 0.0;
+	}
+      else if((income>=300000)&&(income<500000))
+	{
+	  return (5.0/100)*income;
+	}
+      else if((income>=500000)&&(income<1000000))
+	{
+	  return (20.0/100)*income;
+	}
+      else
+	{
+	  return (30.0/100)*income;
+	}
+    }
+  else
+    {
+      if(income<500000)
+	{
+	  return 0.0;
+	}
+      else if((income>=500000)&&(income<1000000))
+	{
+	  return (20.0/100)*income;
+	} 
+      else
+	{
+	  return(30.0/100)*income;
+	}
+    }
+}
+int main()
+{
+  int age,income;
+  float t;
+  scanf("%d%d",&age,&income);
+  t=tax(age,income);
+  printf("%f\n",t);
+}
+\end{verbatim}
+
+\subsection*{Test Input}
+\label{sec-7-6}
+\begin{verbatim}
+45 344000
+\end{verbatim}
+\subsection*{Output}
+\label{sec-7-7}
+\begin{verbatim}
+17200.0        
+\end{verbatim}
+
+
+
+
+
+
+
+\section{Inversion}
+\label{sec-8}
+In a sequence of integers \texttt{a0, a1, a2, a3}, any pair of integers \texttt{(ai, aj)} 
+is said to be an \emph{inversion} if \texttt{ai > aj} for \texttt{i < j}. Write a program to 
+correct/order all the inversions in the        sequence. 
+\subsection*{Specification}
+\label{sec-8-1}
+A function \texttt{inversion()}, which takes an array and it's length as input,
+counts the number of inversions to be performed and returns the result
+to the calling function.
+\subsection*{Prototype}
+\label{sec-8-2}
+\begin{verbatim}
+int inversion(int a[], int n);
+\end{verbatim}
+\subsection*{Program Design}
+\label{sec-8-3}
+The program consists of a function \texttt{inversion(int a[], int n)}, which
+counts the number of inversions to be done, and \texttt{main()}, which gets 
+the input from \texttt{stdin}, calls the function, and prints the result
+on \texttt{stdout}.
+\subsection*{Algorithm}
+\label{sec-8-4}
+\begin{verbatim}
+def inversion(a,n):
+  c=0
+  for i in range(n):
+    for j in range(i+1,n):
+      if a[i]>a[j]:
+        c+=1
+  return c
+\end{verbatim}
+\subsection*{Source Code}
+\label{sec-8-5}
+\begin{verbatim}
+#include<stdio.h>
+int inversion(int a[], int n)
+{
+  int c=0;
+  for(int i=0;i<n;i++)
+    {
+      for(int j=i+1;j<n;j++)
+	{
+	  if(a[i]>a[j]){
+	    c++;
+	  }
+	}
+    }
+  return c;
+}
+int main()
+{
+  int a[20],n;
+  scanf("%d",&n);
+  for(int i=0;i<n;i++)
+    {
+      scanf("%d",&a[i]);
+    }
+  int c=inversion(a,n);
+  printf("%d",c);
+}
+\end{verbatim}
+\subsection*{Test Input}
+\label{sec-8-6}
+\begin{verbatim}
+10
+34 31 43 13 434 -9238 1334 1244 366
+\end{verbatim}
+\subsection*{Output}
+\label{sec-8-7}
+\begin{verbatim}
+21
+\end{verbatim}
+% Emacs 24.5.1 (Org mode 8.2.10)
+\end{document}

@@ -1,0 +1,3 @@
+FILE* fp;//declare a file bridge
+fp=fopen("file1.in","r");// to open a file in read mode
+

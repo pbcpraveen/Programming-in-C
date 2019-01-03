@@ -1,0 +1,439 @@
+% Created 2018-04-14 Sat 20:40
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{palatino}
+\usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+\usepackage{setspace}
+\author{PRAVEEN KUMAR R}
+\date{}
+\title{Exercise 5: Arrays}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.5.1 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+\begin{center}
+\begin{tabular}{lr}
+Assignment & 5\\
+Reg No & 312217104114\\
+Name & PRAVEEN KUMAR R\\
+Grade & \\
+Date & 27-02-2018\\
+\end{tabular}
+\end{center}
+\begin{export}
+\linespread{1.2}
+\end{export}
+\section*{Array visitor}
+\label{sec-1}
+\subsection*{\textbf{Polynomial evaluation}:}
+\label{sec-1-1}
+polynomial $a_{n-1}x^{n-1} + a_{n-2}x^{n-2} + \ldots + a_{1}x + a_{0}$
+is represented as an array.
+\texttt{a[0:n]} of its coefficients. Write a program to compute the value
+of a polynomial using Horner's rule. The crux of the algorithm is:
+\hfill (\emph{accumulator})
+\linespread{1}
+\begin{verbatim}
+s = 0
+for i = n-1 down to 0:
+  s = s * x + a[i]
+\end{verbatim}
+\begin{verbatim}
+#include<stdio.h>
+int main()
+{
+  float a[100],x;
+  int n;
+  scanf("%d",&n);
+  for(int i=0;i<n;i++)
+    scanf("%f",&a[i]);
+  scanf("%f",&x);
+  float s=0;
+  for(int i=n-1;i>=0;i--)
+    s=s*x+a[i];
+  printf("%f",s);
+}
+\end{verbatim}
+
+\begin{verbatim}
+547.0
+\end{verbatim}
+
+\linespread{1.2}
+Compare the algorithm with the algorithm for summing the items of
+an array.
+\subsection*{\textbf{Binary search}:}
+\label{sec-1-2}
+We are given a sorted array of numbers. Define a
+  function \texttt{binary\_search()} to search for a number in the given sorted 
+  array.
+\subsubsection*{Alogorithm}
+\label{sec-1-2-1}
+\begin{verbatim}
+def binary_search(a,n,t):
+   l=0
+   h=n
+   m=(l+n)//2;
+   while(l!=n):
+       if(a[m]==t):
+           return m;
+       elsif(a[m]>t):
+           l=m+1
+       else
+           h=m
+       m=(l+h)//2
+   return n
+\end{verbatim}
+\subsubsection*{Specification}
+\label{sec-1-2-2}
+\linespread{1}
+\begin{verbatim}
+binary_search(a, n, target)
+\end{verbatim}
+\linespread{1.2}
+that searches for \texttt{target} in \texttt{a[0:n]} using binary search
+algorithm. Let the function return an index \texttt{i} such that \hfill
+(\emph{search})
+\begin{verbatim}
+a[0:i] < target <= a[i:n]
+\end{verbatim}
+\begin{verbatim}
+#include<stdio.h>
+int binary_search(int a[],int n,int t)
+{
+  int beg=0,end=n-1;
+  int mid=(beg+end)/2;
+  while(beg<=end)
+    {
+      if(a[mid]==t)
+	return mid;
+      else if(a[mid]<t)
+	beg=mid+1;
+      else 
+	end=mid;
+      mid=(beg+end)/2;
+    }
+  return -1;
+}
+int main()
+{
+  int a[100],n,t;
+  scanf("%d",&n);
+  for(int i=0;i<n;i++)
+    scanf("%d",&a[i]);
+  scanf("%d",&t);
+  int pos= binary_search(a,n,t);
+  printf("%d",pos);
+}
+\end{verbatim}
+
+\begin{verbatim}
+5
+\end{verbatim}
+
+\section*{Sorting}
+\label{sec-2}
+\subsection*{Selection sort}
+\label{sec-2-1}
+\subsubsection*{problem description}
+\label{sec-2-1-1}
+\textbf{Selection sort}: Selection sort is an algorithm for sorting an
+  array of items, say \texttt{a[0:n]}. The idea of the algorithm is
+  expressed below:
+\linespread{1}
+\begin{verbatim}
+swap a[0], a[minimum(a,0,n)]
+swap a[1], a[minimum(a,1,n)]
+swap a[2], a[minimum(a,2,n)]
+...
+swap a[n-2], a[minimum(a,n-2,n)]
+\end{verbatim}
+which uses \texttt{minimum(a, i, n)} to find the minimum of a subarray
+\texttt{a[i:n]}.
+\begin{verbatim}
+selection_sort (a, 0, n):
+   for i = 0 to n-2:
+      swap a[i], a[minimum(a, i, n)]
+\end{verbatim}
+\linespread{1.2}
+Implement selection sort, using \texttt{minimum()} function. Note:
+remember that when a function changes the items of an array
+parameter, the changes are effected in the items of the actual
+array argument also.
+
+Test the function from \texttt{main()} for several lists of numbers. Each
+test should read a list of numbers from stdin.
+\begin{verbatim}
+#include<stdio.h>
+int minimum(int a[], int low, int high)
+{
+  int m=low;
+  for(int i=low+1;i<high;i++)
+    if(a[i]<a[m])
+      m=i;
+  return m;
+}
+void selectionsort(int a[],int n)
+{
+  int temp,min;
+  for(int i=0;i<n-1;i++)
+    {
+      min=minimum(a,i,n);
+      temp=a[min];
+      a[min]=a[i];
+      a[i]=temp;
+    }
+}
+
+int main()
+{
+  int a[100],n;
+  for( n=0; scanf("%d",&a[n])!=EOF;n++);
+  for(int i=0;i<n;i++)
+    printf("%d%c",a[i],i<n-1?',':'\n');
+  selectionsort(a,n);
+  for(int i=0;i<n;i++)
+    printf("%d%c",a[i],i<n-1?',':'\n');
+  return 0;
+}
+\end{verbatim}
+
+\begin{center}
+\begin{tabular}{rrrrrrrrrrrrrr}
+24 & -990 & 378 & 378 & 63 & 1 & 43 & -98 & 382 & 3846 & 26 & -727 & 173 & 2847\\
+-990 & -727 & -98 & 1 & 24 & 26 & 43 & 63 & 173 & 378 & 378 & 382 & 2847 & 3846\\
+\end{tabular}
+\end{center}
+
+\subsection*{\textbf{Polish National Flag (PNF)}: In an array of items \texttt{a[low:high]},}
+\label{sec-2-2}
+each item is either positive or negative. Define a function
+\texttt{partition(a, low, high)} that partitions the array into two
+subarrays \texttt{a[low:i]} and \texttt{a[i:high]} such that all the negative
+items of the array form \texttt{[low:i]}, and all the positive items form
+\texttt{[i:high]}. Test the function from \texttt{main()}. Use several lists of
+numbers for testing. (Note: We will use this algorithm for
+implementing \texttt{quicksort()}.)
+
+\textbf{Specification}: The partition algorithm takes an array
+\texttt{a[low:high]} as the input and returns an index \texttt{i} as
+the output such that all the negative items of the array
+form \texttt{[low:i]}, and all the positive items form
+\texttt{[i:high]}.
+
+\textbf{Algorithm development}\\
+   The iterative step:\\
+   After a few iterations, there are 3 subarrays, \texttt{[low:i]},
+\texttt{[i:j]}, and \texttt{[j:n]}.
+
+Initially, \ldots{}\\
+
+The next item to be scanned is \texttt{[j]}.  There are two
+cases: \texttt{[j] < 0} and \texttt{0 <} [j]=.
+
+\textbf{Algorithm}
+\begin{verbatim}
+partition a, low, high:
+   i, j = low, high
+   while j != high:
+      if a[j] < 0:
+         swap a[i], a[j]
+         i = i+1
+      j = j + 1
+\end{verbatim}
+
+\linespread{1}
+\begin{verbatim}
+#include <stdio.h>
+
+int read_array (int a[]);
+void print_array (int a[], int low, int high);
+int partition (int a[], int n);
+void swap (int a[], int i, int j);
+int main ()
+{
+  int a[100];
+  int n;
+  int i;
+
+  n = read_array(a);
+  print_array (a, 0, n);
+  i = partition (a, n);
+  print_array (a, 0, i);
+  print_array (a, i, n);  
+}
+
+
+int read_array (int a[])
+{
+  int i;
+  for (i = 0; scanf ("%d", &a[i]) != EOF; i++)
+    ;
+  return i;
+}
+
+void print_array (int a[], int low, int high)
+{
+  int i;
+
+  for (i = low; i < high; i++)
+    printf ("%d,", a[i]);
+  printf ("\n");
+}
+
+int partition (int a[], int n)
+{
+  int i, j;
+
+  i = 0;
+  j = 0;
+  while (j != n) {
+    if (a[j] < 0) {
+      swap (a, i, j);
+      i++;
+    }
+    j++;
+  }
+  return i;
+}
+
+void swap (int a[], int i, int j)
+{
+  int t = a[i];
+  a[i] = a[j];
+  a[j] = t;
+}
+\end{verbatim}
+
+\begin{center}
+\begin{tabular}{rrrrrrrrrrrrl}
+20 & 30 & -80 & -30 & 0 & 10 & -40 & -90 & 0 & 50 & 60 & -50 & \\
+-80 & -30 & -40 & -90 & -50 &  &  &  &  &  &  &  & \\
+10 & 20 & 30 & 0 & 50 & 60 & 0 &  &  &  &  &  & \\
+\end{tabular}
+\end{center}
+
+\subsection*{\textbf{Dutch National Flag (DNF)} is similar to PNF, but partitions the}
+\label{sec-2-3}
+array \texttt{a[l:h]} into three subarrays \texttt{[l:i]}, \texttt{[i:j]} and
+\texttt{[j:h]}. Each item of the array has one of the three
+properties. Items having the same property should form one subarray
+each.
+
+\begin{verbatim}
+#include <stdio.h>
+
+int read_array (int a[]);
+void print_array (int a[], int low, int high);
+int partition (int a[],int low, int n,int k);
+void swap (int a[], int i, int j);
+
+int main ()
+{
+  int a[100];
+  int n;
+  int i,j;
+
+  n = read_array(a);
+  print_array (a, 0, n);
+  i = partition (a,0, n,-1);
+  j = partition (a,i, n,0);
+  print_array (a, 0, i);
+  print_array (a,i,j);
+  print_array (a, j, n);  
+}
+
+
+int read_array (int a[])
+{
+  int i;
+  for (i = 0; scanf ("%d", &a[i]) != EOF; i++)
+    ;
+  return i;
+}
+
+void print_array (int a[], int low, int high)
+{
+  int i;
+
+  for (i = low; i < high; i++)
+    printf ("%d,", a[i]);
+  printf ("\n");
+}
+
+int partition (int a[], int low,int n,int k)
+{
+  int i, j;
+
+  i = low;
+  j = low;
+if(k==-1)
+ {
+   while (j != n) {
+    if (a[j] < 0) {
+      swap (a, i, j);
+      i++;
+    }
+    j++;
+  }
+}
+else if(k==0)
+{
+while (j != n) {
+    if (a[j] == 0) {
+      swap (a, i, j);
+      i++;
+    }
+    j++;
+  }
+}
+  return i;
+}
+
+void swap (int a[], int i, int j)
+{
+  int t = a[i];
+  a[i] = a[j];
+  a[j] = t;
+}
+\end{verbatim}
+
+\begin{center}
+\begin{tabular}{rrrrrrrrrrrrrrrl}
+23 & -90 & 67 & -65 & 0 & 0 & 83 & 0 & -282 & 56 & -473 & 0 & 372 & -34 & 56 & \\
+-90 & -65 & -282 & -473 & -34 &  &  &  &  &  &  &  &  &  &  & \\
+0 & 0 & 0 & 0 &  &  &  &  &  &  &  &  &  &  &  & \\
+56 & 23 & 83 & 372 & 67 & 56 &  &  &  &  &  &  &  &  &  & \\
+\end{tabular}
+\end{center}
+
+\begin{verbatim}
+#include<stdio.h>
+{
+printf("%f",sqrt(56));
+}
+\end{verbatim}
+
+\begin{verbatim}
+7.483315
+\end{verbatim}
+% Emacs 24.5.1 (Org mode 8.2.10)
+\end{document}

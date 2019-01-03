@@ -1,0 +1,676 @@
+#+TITLE: Exercise 3: Conditional and Alternative statements
+#+AUTHOR:PRAVEEN KUMAR R
+#+DATE: 20-02-2018
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LaTeX_HEADER: \usepackage{setspace}
+#+PROPERTY: header-args :exports both :eval no-exports
+#+OPTIONS: toc:nil
+#+OPTIONS: num:1
+#+begin_latex
+%\linespread{1.2}
+#+end_latex
+| Assignment |               3 |
+| Reg No     |    312217104114 |
+| Name       | PRAVEEN KUMAR R |
+| Grade      |                 |
+| Date       |      20-02-2018  |
+
+
+* 24 hour format
+Write a program to get a time in 24 hour format and convert it to a 12 hour format
+** Program Design
+The program consists of =main()=, which gets the input of time from =stdin=, 
+converts it to 12 hour format and prints the result on =stdout=.
+** Algorithm 
+def func(h,m,s):
+  if h<=12:
+    if h==12:
+      print("%d:%d:%d pm\n",h,m,s)
+    else
+      print("%d:%d:%d am\n",h,m,s)
+  else
+    if h==24:
+      print("%d:%d:%d am\n",h-24,m,s)
+    else
+      print("%d:%d:%d pm\n",h-12,m,s)
+
+** Source Code:
+
+#+BEGIN_SRC C :cmdline <24time.in
+  #include<stdio.h>
+  int main()
+  {
+    int h,m,s;
+    scanf("%d%d%d",&h,&m,&s);
+    printf("%d:%d:%d %s",h<13?h:h-12,m,s,h<13?"am":"pm");  
+  }    
+#+END_SRC
+
+** Test Input:
+#+BEGIN_EXAMPLE
+23 15 45
+#+END_EXAMPLE
+** Output:
+#+RESULTS:
+: 11:15:45 pm
+
+* Time Comparison
+Write a function to accept 2 time in hours minutes and seconds and compare which time 
+is earlier.
+** Program Design
+The program consists of =main()=, which gets the input from =stdin=, compares the
+times and prints the result on =stdout=.
+** Algorithm
+
+#+BEGIN_EXAMPLE
+def func(h1,m1,s1,h2,m2,s2):
+  if h1>h2:
+    print("t1 is earlier")
+  elif h1<h2:
+    print("t2 is earlier")
+  else
+    if m1>m2:
+      print("t1 is earlier")
+    elif m1<m2:
+      print("t2 is earlier")
+    else:
+      if s1>s2:
+        print("t1 is earlier")
+      elif s1<s2:
+        print("t2 is earlier")
+      else:
+        print("Both are same")
+#+END_EXAMPLE
+** Source Code:
+#+BEGIN_SRC C :cmdline <timecmp.in
+  #include<stdio.h>
+  int compare(int h1,int m1,int s1,int h2,int m2,int s2)
+  {
+    if(h1<h2)
+      {
+        return -1;
+      }
+    else if(h1>h2)
+      {
+        return 1;
+      }
+    else
+      {
+        if(m1>m2)
+          {
+            return 1;
+          }
+        else if(m1<m2)
+          {
+            return -1;
+          }
+        else
+          {
+            if(s1>s2)
+              {
+                return 1;
+              }
+            else if(s1<s2)
+              {
+                return -1;
+              }
+            else
+              {
+                return 0;
+              }
+          }     
+      }
+  }
+  int main()
+  {
+    int h1,m1,s1,h2,m2,s2;
+    scanf("%d%d%d",&h1,&m1,&s1);
+    scanf("%d%d%d",&h2,&m2,&s2);
+    printf("%d %d %d\t%d %d %d\n",h1,m1,s1,h2,m2,s2);
+    printf("%d ",compare(h1,m1,s1,h2,m2,s2);
+    return 0;
+  }
+#+END_SRC
+
+** Test Input:
+#+BEGIN_EXAMPLE
+14 6 34  14 6 33
+#+END_EXAMPLE
+** Output:
+#+RESULTS:
+: -1          
+
+* Time difference
+Write a program to calculate the time difference between the two 
+time the user enters and print it
+** Specification
+A function =sign()=, which takes an integer as the input and returns
+it's sign to the calling function.
+** Prototype
+#+BEGIN_EXAMPLE
+int sign(int a);
+#+END_EXAMPLE
+** Program Design
+The program consists a function =sign(int a)=, which returns the 
+sign of the integer, and =main()=, which gets the input from =stdin=,
+calls the function and prints the rsult accordingly on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def sign(a):
+  if a>=0:
+    return 1
+  else
+    return -1
+
+#+END_EXAMPLE
+** Sorce Code
+
+#+BEGIN_SRC C :cmdline <timediff.in
+  #include<stdio.h>
+  
+  int sign(int a){
+    if(a>=0){
+      return 1;
+    }
+    else{
+      return -1;
+    }
+  }
+  
+  int main(){
+    int a,b,c,d,e,f,g,h,i;
+    scanf("%d%d%d",&a,&b,&c);
+    scanf("%d%d%d",&d,&e,&f);
+    g=sign(a-d);
+    h=sign(b-e);
+    i=sign(c-f);
+    if(g>0){
+      if(h>0 && i>0){
+        printf("%d:%d:%d\n",a-d,b-e,c-f);
+      }
+      else if(h>0 && i<0){
+        printf("%d:%d:%d\n",a-d,b-e,f-c);
+      }
+      else if(h<0 && i>0){
+        printf("%d:%d:%d\n",a-d,e-b,c-f);
+      }
+      else{
+        printf("%d:%d:%d\n",a-d,e-b,f-c);
+      }  
+    }
+    else{
+      if(h>0 && i>0){
+        printf("%d:%d:%d\n",d-a,b-e,c-f);
+      }
+      else if(h>0 && i<0){
+        printf("%d:%d:%d\n",d-a,b-e,f-c);
+      }
+      else if(h<0 && i>0){
+        printf("%d:%d:%d\n",d-a,e-b,c-f);
+      }
+      else{
+        printf("%d:%d:%d\n",d-a,e-b,f-c);
+      }  
+    }
+  }
+  
+#+END_SRC
+
+** Test Input
+#+BEGIN_EXAMPLE
+14 6 34        14 6 33
+#+END_EXAMPLE
+** Output
+#+RESULTS:  
+: 0 0 1                 
+
+* Smallest and largest of 4 numbers
+Write a program to find the smallest and largest number out of the 4 numbers entered 
+from the standard input
+** Specification
+2 functions =min2()= and =max2()=, which take 2 integers as the input and returns
+the minimum and maximum of the two to the calling function respectively.
+** Prototype
+#+BEGIN_EXAMPLE
+int min2(int a, int b);
+int max2(int a, int b);
+#+END_EXAMPLE
+** Program Design
+The program consists of 2 functions =min2(int a, int b)= and =max2(int a, int b)=
+which returns the minimum and maximum of the 2 numbers, and =main()=, which
+gets the input from =stdin=, calls the functions, and prints the result on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def min2(a,b):
+  if a>b:
+    return b
+  else:
+    return a
+def max2(a,b):
+  if a<b:
+    return b
+  else:
+    return a
+#+END_EXAMPLE
+** Source Code
+
+#+BEGIN_SRC C :cmdline <smalllarge.in
+  #include<stdio.h>
+  int min2(int a, int b){
+    if(a>b){
+      return b;
+    }
+    else{
+      return a;
+    }
+  }
+
+  int max2(int a, int b){
+    if(a<b){
+      return b;
+    }
+    else{
+      return a;
+    }
+  }
+
+  int main(){
+    int a,b,c,d,m,n;
+    scanf("%d%d%d%d",&a, &b, &c, &d);
+    m=min2(a,b);
+    m=min2(m,c);
+    m=min2(m,d);
+    n=max2(a,b);
+    n=max2(n,c);
+    n=max2(n,d);
+    printf("%d,%d\n",m,n);
+  }
+
+#+END_SRC
+
+** Test Input
+#+BEGIN_EXAMPLE
+-98 56 928 -999
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+: -999 928
+
+* Grades
+Write a function =grades()= to translate the marks of a student in various subjects 
+into letter grades and print the grades on the output.
+| Mark range | Grade points | Leter grade |
+|     91-100 |           10 | S           |
+|      81-90 |            9 | A           |
+|      71-80 |            8 | B           |
+|      61-70 |            7 | C           |
+|      57-60 |            6 | D           |
+|      51-56 |            5 | E           |
+|        <50 |            0 | U           |
+** Specification
+A function =grade()=, which gets the mark as the input and returns a grade as 
+character to the calling function.
+** Prototype
+#+BEGIN_EXAMPLE
+char grade(int x);
+#+END_EXAMPLE
+** Program Design
+The program consists of a function =grade(int x)=, which returns a grade as a 
+character based on the mark, and =main()=, which gets the input from =stdin=,
+calls the function and prints the result on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def grade(x):
+  if x>90:
+    return 's'
+  elif x>80:
+    return 'a'
+  elif x>70:
+    return 'b'
+  elif x>60:
+    return 'c'
+  elif x>56:
+    return 'd'
+  elif x>50:
+    return 'e'
+  else:
+    return 'u'
+#+END_EXAMPLE  
+** Source Code
+
+#+BEGIN_SRC C :cmdline <grade.in
+  #include<stdio.h>
+  char grade(int x){
+    if(x>90){
+      return 'S';
+    }
+    else if(x>80){
+      return 'A';
+    }
+    else if(x>70){
+      return 'B';
+    }
+    else if(x>60){
+      return 'C';
+    }
+    else if(x>56){
+      return 'D';
+    }
+    else if(x>50){
+      return 'E';
+    }
+    else{
+      return 'U';
+    }
+  }  
+  int main(){
+    int a[20],n;
+    char g;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+      scanf("%d",&a[i]);
+    }
+    for(int i=0;i<n;i++){
+      g=grade(a[i]);
+      printf("%c\n",g);
+    }
+  }
+
+
+#+END_SRC
+
+** Test Input
+#+BEGIN_EXAMPLE
+8
+94 56 33 78 81 99 100 66
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+:  S 
+:  E 
+:  U 
+:  B 
+:  A 
+:  S
+:  S 
+:  C 
+
+* Tariff Calculator
+Write a function =eb()= to find out the domestic eb bill based on the given slab rates
+1. Consumption upto 100 units: free.
+2. Consumption above 100 units and upto 200 units: Rs 1.50 per unit.
+3. Consumption above 200 units and upto 500 units: Rs 2.00 per unit 
+   for 101-200 units and Rs 3.00 per unit for 201-500 units.
+4. Consumption above 500 units: Rs 3.50 per unit for 101-200 units, 
+   Rs 4.60 per unit for 201-500 units, and Rs 6.60 beyond 500 units.
+** Specification
+A function =eb()=, which takes the number of units as the input and returns the cost
+based on the conditions to the calling function.
+** Prototype
+#+BEGIN_EXAMPLE
+float eb(int unit);
+#+END_EXAMPLE
+** Program Design
+The program consists of a function =eb(int unit)=, which returns the net cost, and =main()=,
+which gets the input from =stdin=, calls the function and prints the result on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def eb(u):
+  if u<=100:
+    return 0
+  elif u>100 and u<=200:
+    return 1.5*u
+  elif u>200 and u<=500:
+    return (u-200)*3.0+(u-100)*2.0
+  else:
+    return (u-500)*6.6+(u-200)*4.6+(u-100)*3.5
+#+END_EXAMPLE
+** Source Code
+
+#+BEGIN_SRC C 
+
+  #include<stdio.h>
+  float eb(int unit){
+    if(unit<=100){
+      return 0.0;
+    }
+    else if((unit>100)&&(unit<=200)){
+      return 1.5*unit;
+    }
+    else if((unit>200)&&(unit<=500)){
+      return(unit-200)*3.0+100*2.0;
+    }
+    else{
+      return (unit-500)*6.6+300*4.6+100*3.5;
+    }
+  }
+  int main(){
+    int unit;
+    float cost;
+    scanf("%d",&unit);
+    cost=eb(unit);
+    printf("%.4f\n",cost);
+  }
+
+#+END_SRC
+
+** Test Input
+#+BEGIN_EXAMPLE    
+345 
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+: 635.0
+
+* Income Tax
+Write a function =tax()= to calculate the income tax based on the age and the income 
+of the person
+1. Income Tax Slab for Individual Tax Payers (Less Than 60 Years Old)
+| Income Slab                | Tax Rate |
+| Up to Rs.2,50,000          |   No tax |
+| Rs.2,50,000 - Rs.5,00,000  |       5% |
+| Rs.5,00,000 - Rs.10,00,000 |      20% |
+| Rs.10,00,000 and beyond    |      30% |
+2. Income Tax Slab for Senior Citizens (60 Years Old Or more but Less than 80 Years Old)
+| Income Slab                | Tax Rate |
+| Up to Rs.3,00,000          |   No tax |
+| Rs.3,00,000 - Rs.5,00,000  |       5% |
+| Rs.5,00,000 - Rs.10,00,000 |      20% |
+| Rs.10,00,000 and beyond    |      30% |
+3. Income Tax Slab for Senior Citizens (More than 80 years old)
+| Income Slab                | Tax Rate |
+| Up to Rs.2,50,000          | No tax   |
+| Rs.2,50,000 - Rs.5,00,000  | No tax   |
+| Rs.5,00,000 - Rs.10,00,000 | 20%      |
+| Rs.10,00,000 and beyond    | 30%      |
+Modify your function to take the age and the income as the parameters and calculate the tax.
+** Specification
+A function =tax()=, which gets the age and income as the inputs, checks the conditions
+and returns the value of tax to the calling function
+** Prototype
+#+BEGIN_EXAMPLE
+float tax(int age, int income);
+#+END_EXAMPLE
+** Program Design
+The program consists of a function =tax(int age, int income)=, which returns the value
+of tax based on conditions, and =main()=, which gets the input from =stdin=, calls
+the function and prints the result on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def tax(age,income):
+  if(age<60):
+      if income<250000:
+        return 0.0
+      elif income>=250000 and income<500000:
+        return (5.0/100)*income
+      elif income>=500000 andincome<1000000:
+        return (20.0/100)*income
+      else:
+        return (30.0/100)*income
+    else ifage>=60 and age<80:
+      if income<300000;
+        return 0.0
+      elif income>=300000 and income<500000:
+        return (5.0/100)*income
+      elif income>=500000 and income<1000000:
+        return (20.0/100)*income
+      else:
+        return (30.0/100)*income
+    else:
+      if income<500000:
+        return 0.0
+      elif income>=500000 and income<1000000:
+        return (20.0/100)*income
+      else:
+        return(30.0/100)*income
+#+END_EXAMPLE
+** Source Code
+     
+#+BEGIN_SRC C
+  #include<stdio.h>
+  float tax(int age, int income)
+  {
+    if(age<60)
+      {
+        if(income<250000)
+        {
+          return 0.0;
+        }
+        else if((income>=250000)&&(income<500000))
+          {
+            return (5.0/100)*income;
+          }
+        else if((income>=500000)&&(income<1000000))
+          {
+            return (20.0/100)*income;
+          }
+        else
+          {
+            return (30.0/100)*income;
+          }
+      }
+    else if((age>=60)&&(age<80))
+      {
+        if(income<300000)
+          {
+            return 0.0;
+          }
+        else if((income>=300000)&&(income<500000))
+          {
+            return (5.0/100)*income;
+          }
+        else if((income>=500000)&&(income<1000000))
+          {
+            return (20.0/100)*income;
+          }
+        else
+          {
+            return (30.0/100)*income;
+          }
+      }
+    else
+      {
+        if(income<500000)
+          {
+            return 0.0;
+          }
+        else if((income>=500000)&&(income<1000000))
+          {
+            return (20.0/100)*income;
+          } 
+        else
+          {
+            return(30.0/100)*income;
+          }
+      }
+  }
+  int main()
+  {
+    int age,income;
+    float t;
+    scanf("%d%d",&age,&income);
+    t=tax(age,income);
+    printf("%f\n",t);
+  }
+
+#+END_SRC
+
+** Test Input
+#+BEGIN_EXAMPLE
+45 344000
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+: 17200.0        
+
+
+
+
+
+                
+
+* Inversion
+In a sequence of integers =a0, a1, a2, a3=, any pair of integers =(ai, aj)= 
+is said to be an /inversion/ if =ai > aj= for =i < j=. Write a program to 
+correct/order all the inversions in the	sequence. 
+** Specification
+A function =inversion()=, which takes an array and it's length as input,
+counts the number of inversions to be performed and returns the result
+to the calling function.
+** Prototype
+#+BEGIN_EXAMPLE
+int inversion(int a[], int n);
+#+END_EXAMPLE
+** Program Design
+The program consists of a function =inversion(int a[], int n)=, which
+counts the number of inversions to be done, and =main()=, which gets 
+the input from =stdin=, calls the function, and prints the result
+on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def inversion(a,n):
+  c=0
+  for i in range(n):
+    for j in range(i+1,n):
+      if a[i]>a[j]:
+        c+=1
+  return c
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C 
+  #include<stdio.h>
+  int inversion(int a[], int n)
+  {
+    int c=0;
+    for(int i=0;i<n;i++)
+      {
+        for(int j=i+1;j<n;j++)
+          {
+            if(a[i]>a[j]){
+              c++;
+            }
+          }
+      }
+    return c;
+  }
+  int main()
+  {
+    int a[20],n;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+      {
+        scanf("%d",&a[i]);
+      }
+    int c=inversion(a,n);
+    printf("%d",c);
+  }
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+10
+34 31 43 13 434 -9238 1334 1244 366
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+: 21

@@ -1,0 +1,699 @@
+% Created 2018-04-14 Sat 20:10
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{palatino}
+\usepackage[top=1in,bottom=1.25in,left=1.25in,right=1.25in]{geometry}
+\usepackage{setspace}
+\setcounter{secnumdepth}{1}
+\author{PRAVEEN KUMAR R}
+\date{20/2/18}
+\title{Exercise 4: Iterative statements}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.5.1 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+\begin{center}
+\begin{tabular}{lr}
+Assignment & 4\\
+Reg No & 312217104114\\
+Name & PRAVEEN KUMAR R\\
+Grade & \\
+Date & 20-02-2018\\
+\end{tabular}
+\end{center}
+\begin{export}
+\linespread{1.2}
+\end{export}
+
+
+\section{Indenting using iteration}
+\label{sec-1}
+
+\subsection*{Problem description:}
+\label{sec-1-1}
+Define a function \texttt{indent()} to print n times the pattern 
+\texttt{|-{}-} in a line where n is given as a parameter to the function
+
+\subsection*{Specifications:}
+\label{sec-1-2}
+function called \texttt{indent()} to print the pattern \texttt{|-{}-}
+n times followed by the key n
+\texttt{input}: key ,value from the standard input
+\texttt{output}: \texttt{|-{}-|-{}-...} for n times \texttt{key}
+
+\subsection*{Program code:}
+\label{sec-1-3}
+
+\begin{verbatim}
+#include<stdio.h>
+void indent(int level,int key)
+{
+  for(int i=1;i<=level;i++)
+    printf("|--");
+  printf("%d\n",key);
+}
+int main()
+{
+  int a,a1;
+  while( scanf("%d%d",&a,&a1)!=EOF)
+    {
+       indent(a,a1);
+    }
+}
+\end{verbatim}
+\subsection*{Test}
+\label{sec-1-4}
+\subsubsection*{Input}
+\label{sec-1-4-1}
+\begin{verbatim}
+2 10
+3 45
+6 60
+7 7
+\end{verbatim}
+
+\subsubsection*{Output}
+\label{sec-1-4-2}
+\begin{verbatim}
+|--|--10
+|--|--|--45   
+|--|--|--|--|--|--60
+|--|--|--|--|--|--|--7
+\end{verbatim}
+
+\section{Length of the array}
+\label{sec-2}
+
+\subsection*{Problem description:}
+\label{sec-2-1}
+define a function \texttt{array\_len()} to find the length of 
+the array terminated by -1
+\subsection*{Specifications:}
+\label{sec-2-2}
+function called \texttt{array\_len()} to find out the length of an array
+terminated by -1
+\texttt{input}: an array terminated by -1
+\texttt{output}: length of the array
+
+\subsection*{Program code:}
+\label{sec-2-3}
+
+\begin{verbatim}
+#include<stdio.h>
+int arraylen(int a[])
+{
+  int c=1,i=0;
+  while(a[i]!=-1)
+    {
+      c+=1;
+      i+=1;
+    }
+  return c;
+}
+int main()
+{
+  int a[100];
+  for(int i =0;;i++)
+    {
+      scanf("%d",&a[i]);
+      if(a[i]==-1)
+	break;
+    }
+
+  printf("%d\n",arraylen(a));
+}
+\end{verbatim}
+\subsection*{Test}
+\label{sec-2-4}
+\subsubsection*{Input}
+\label{sec-2-4-1}
+4 63 19 4 3 6 8 0 2 8 -1
+\subsubsection*{Output}
+\label{sec-2-4-2}
+\begin{verbatim}
+8
+\end{verbatim}
+
+\subsection*{Sample input:}
+\label{sec-2-5}
+4 3 6 8 0 2 8 -1
+
+\subsection*{Sample output:}
+\label{sec-2-6}
+8
+
+\section{Print a subarray}
+\label{sec-3}
+
+\subsection*{Problem description}
+\label{sec-3-1}
+write a function \texttt{print\_array()} that prints a subarray \texttt{a[low:high]} that is 
+items from low to high
+
+\subsection*{Specifications}
+\label{sec-3-2}
+function called \texttt{print\_array()} to print the subarray from low to high
+\texttt{input}: array,lower bound,upper bound
+\texttt{output}: subarray \texttt{a[low:high]}
+
+\subsection*{Program code}
+\label{sec-3-3}
+
+\begin{verbatim}
+#include<stdio.h>
+void print_array(int a[],int l,int h)
+{
+  for(int i=l;i<h;i++)
+    printf("%d%c",a[i],i-1<h?',':' ');
+}
+int main()
+{
+  int n,low,high,a[100];
+  scanf("%d",&n);
+  for(int i=0;i<n;i++)
+    scanf("%d",&a[i]);
+  scanf("%d%d",&low,&high);
+  print_array(a,low,high);
+}
+\end{verbatim}
+\subsection*{Test}
+\label{sec-3-4}
+\subsubsection*{Input}
+\label{sec-3-4-1}
+\begin{verbatim}
+10 23 45 22 11 233 45453  221 344 4565 223  
+2 8
+\end{verbatim}
+\subsubsection*{Output}
+\label{sec-3-4-2}
+\begin{center}
+\begin{tabular}{rrrrrr}
+22 & 11 & 233 & 45453 & 221 & 344\\
+\end{tabular}
+\end{center}
+
+\subsection*{Sample input}
+\label{sec-3-5}
+1 2 3 4 5 6 7 
+3 5
+
+\subsection*{Sample output}
+\label{sec-3-6}
+4 5
+
+\section{Sum,mean,variance}
+\label{sec-4}
+\subsection*{Program description}
+\label{sec-4-1}
+Read an array of numbers from standard input.
+Define \texttt{sum()} , \texttt{variance()} and \texttt{mean()}, to calculate
+the sum ,variance and mean of the given set of numbers.
+Test these functions from the \texttt{main()}.
+\subsection*{Specification}
+\label{sec-4-2}
+\begin{itemize}
+\item \texttt{sum()}
+-- Input: a[0:n], anarray of integers and n, number of elements 
+   in the array.
+-- Output: sum of the set of numbers.
+\item \texttt{variance()}
+-- Input: a[0:n], anarray of integers and n, number of elements 
+   in the array.
+-- Output: variance of the set of numbers.
+\item \texttt{mean()}
+-- Input: a[0:n], anarray of integers and n, number of elements 
+   in the array.
+-- Output: mean of the set of numbers.
+\end{itemize}
+\subsection*{Algorithm}
+\label{sec-4-3}
+\begin{verbatim}
+def sum(a,l,h):
+   s=0
+   for i in range(l,h):
+      s+=a[i]
+   return s
+def mean(a,l,h):
+   return sum(a,l,h)/(1.0*(h-l))
+def variance(a,l,h):
+   m=mean(a,l,h),s=0
+   for i in range(l,h):
+      s+=(a[i]-m)^2
+   return s/(h-l)
+def count(a,l,h):
+   m=mean(a,l,h)
+   s=0
+   for i in range(l,h):
+      if a[i]>m:
+         s++
+   return s
+\end{verbatim}
+\subsection*{Program}
+\label{sec-4-4}
+\begin{verbatim}
+#include<stdio.h>
+int sum(int a[],int n);
+float variance(int a[],int n);
+float mean(int a[],int n);
+int sum(int a[],int n)
+{
+  int sum=0;
+  for(int i=0;i<n;i++)
+    {
+      sum+=a[i];
+    }
+  return sum;
+}
+float mean(int a[],int n)
+{
+  return sum(a,n)/((float)(n));
+}
+float variance(int a[],int n)
+{
+  float s=mean(a,n);
+  float k=0;
+  for(int i=0;i<n;i++)
+    {
+      float p=a[i]-s;
+      k=k+p*p;
+    }
+  return k/n;
+}
+int main()
+{
+  int a[100],n;
+  scanf("%d",&n);
+  for(int i=0;i<n;i++)
+    scanf("%d",&a[i]);
+  printf("sum=%d\nmean=%f\nvariance=%f",sum(a,n),mean(a,n),variance(a,n));
+}
+\end{verbatim}
+\subsection*{Test}
+\label{sec-4-5}
+\subsubsection*{Input}
+\label{sec-4-5-1}
+10
+46 38 283 54 23 239 46 224  24 245 
+\subsubsection*{Output}
+\label{sec-4-5-2}
+\begin{center}
+\begin{tabular}{l}
+sum=1222\\
+mean=122.199997\\
+variance=10777.959961\\
+\end{tabular}
+\end{center}
+
+\section{Prime numbers}
+\label{sec-5}
+
+\subsection*{Problem description:}
+\label{sec-5-1}
+write a boolean function \texttt{is\_prime()} to check whether a number is prime or not 
+and prints true or false
+
+\subsection*{Specifications:}
+\label{sec-5-2}
+function \texttt{is\_prime()} to check whether a number is prime or not 
+and check the first 100 integers
+\texttt{input}: an integer n
+\texttt{output}: true if the number is prime , 
+          flase if the number is not prime
+
+\subsection*{Algorithm}
+\label{sec-5-3}
+\begin{verbatim}
+def is_prime(a):
+   i=2,f=1
+   while i<a/2:
+      if a%i==0:
+         f=0
+         break
+      i++
+   return f
+\end{verbatim}
+\subsection*{program code:}
+\label{sec-5-4}
+
+\begin{verbatim}
+#include<stdio.h>
+#include<stdbool.h>
+bool is_prime(int n)
+{
+  int flag=1;
+  for(int i=2;i<n;i++)
+    {
+      if(n%i==0)
+	flag =0;
+    }
+  if(flag==1)
+    return true;
+  else
+    return false;
+}
+int main()
+{
+  int a[100];
+  int n;
+  for(n=0;scanf("%d",&a[n])!=EOF;n++);
+  for(int i=0;i<n;i++)
+    {
+      printf("%d :",a[i]);
+      if(is_prime(a[i]))
+	printf("true");
+      else
+	printf("false");
+      printf("\n");
+    }
+}
+\end{verbatim}
+
+\begin{center}
+\begin{tabular}{rl}
+23 & :true\\
+45 & :false\\
+75 & :false\\
+32 & :false\\
+234 & :false\\
+24 & :false\\
+111 & :false\\
+3545 & :false\\
+\end{tabular}
+\end{center}
+
+\subsection*{Test}
+\label{sec-5-5}
+\subsubsection*{Input}
+\label{sec-5-5-1}
+23 45 75 32 234 24 111 3545 
+\subsubsection*{Output}
+\label{sec-5-5-2}
+\begin{center}
+\begin{tabular}{rl}
+23 & :true\\
+45 & :false\\
+75 & :false\\
+32 & :false\\
+234 & :false\\
+24 & :false\\
+111 & :false\\
+3545 & :false\\
+\end{tabular}
+\end{center}
+
+\section{Linear search}
+\label{sec-6}
+
+\subsection*{Problem description:}
+\label{sec-6-1}
+define a function \texttt{linear\_search()} to search a target in an array and return the index if the item is present 
+or else return an invalid index
+
+\subsection*{Algorithmic process:}
+\label{sec-6-2}
+\begin{itemize}
+\item compare each item in the array with the target element
+\item If they are equal then return the index thereby breaking the loop.
+\item If the target is not in the array then the loop will end when control variable reaches an invalid index
+\end{itemize}
+then the function will return an invalid index
+
+\subsection*{Algorithm}
+\label{sec-6-3}
+\begin{verbatim}
+def linear_search(a,n,t):
+   for i in range(n):
+      if a[i]==t:
+         break
+   return i
+def linear_search_n(a,n,t):
+   i=0
+   while i<n and a[i]!=t:
+      i=i+1
+   return i
+def binary_search(a,n,t):
+   l=0,u=n-1,f=0,m
+   while l<=u and f=0:
+      m=(l+u)/2
+      if t==a[m]:
+         f=m
+      elif a[m]>t:
+         u=m-1
+      else:
+         l=m+1
+   if f==0:
+      return -1
+   return f
+\end{verbatim}
+\subsection*{Specifications:}
+\label{sec-6-4}
+\texttt{linear\_search()}: to search for a target in an array and return the index of the array if present or 
+invalid number if the target is not present
+\begin{itemize}
+\item \texttt{input}: a[0:n],an integer array, n ,target
+\item \texttt{output}: index of target or the length of the array(invalid)
+\end{itemize}
+
+\subsection*{Program code}
+\label{sec-6-5}
+\begin{verbatim}
+#include<stdio.h>
+int linear_search(int a[],int n,int t)
+{
+  int i;
+  for(i=0;i<n;i++)
+  {
+    if(a[i]==t)
+      break;
+  }
+  return i;
+}
+int main()
+{
+  int n,t,a[100];
+  scanf("%d",&n);
+  for(int i=0;i<n;i++)
+    scanf("%d",&a[i]);
+  scanf("%d",&t);
+  printf("%d\n",linear_search(a,n,t));
+}
+\end{verbatim}
+\subsection*{Test}
+\label{sec-6-6}
+\subsubsection*{Input}
+\label{sec-6-6-1}
+\begin{verbatim}
+7
+3 42 4 42 22 112  44
+112
+\end{verbatim}
+\subsubsection*{Output}
+\label{sec-6-6-2}
+\begin{verbatim}
+5
+\end{verbatim}
+
+\section{Minimum}
+\label{sec-7}
+
+\subsection*{Problem description:}
+\label{sec-7-1}
+write a function \texttt{min()} that returns the index of the 
+smallest item in the array
+
+\subsection*{Algorithmic process:}
+\label{sec-7-2}
+\begin{itemize}
+\item Assume first element of the array as the minimum.
+\item Compare each item in the array with the minimum assumed .
+\item if they are smaller than the minimum then assign that item as the minimum and continue the loop.
+\item After each iteration the minimum variable will have the minimum value of the sub-array a[0,i].
+\item After loop ends the variable will have the minimum number of the array
+\end{itemize}
+\subsection*{Algorithm}
+\label{sec-7-3}
+\begin{verbatim}
+def min(a,l,h):
+   m=l
+   for i in range(l+1,h):
+      if a[i]<a[m]:
+         m=i
+   return m
+\end{verbatim}
+\subsection*{Specifications:}
+\label{sec-7-4}
+\texttt{min()} to return the index of the minimum item in the array
+\texttt{input}: a[0:n], an array of integers and n
+\texttt{output}: i such that a[i]<=a[0:n]
+\subsection*{Program code:}
+\label{sec-7-5}
+
+\begin{verbatim}
+#include<stdio.h>
+int min(int a[],int n)
+{
+  int m=0,i;
+  for(i=0;i<n;i++)
+  {
+    if(a[i]<a[m])
+      m=i;
+  }
+  return m;
+}
+int main()
+{
+  int n,a[100];
+  scanf("%d",&n);
+  for(int i=0;i<n;i++)
+    scanf("%d",&a[i]);
+  printf("%d\n",a[min(a,n)]);
+}
+\end{verbatim}
+\subsection*{Test}
+\label{sec-7-6}
+\subsubsection*{Input}
+\label{sec-7-6-1}
+\begin{verbatim}
+10
+33 5432 4254 545 211 45 125 44 533 65672
+\end{verbatim}
+\subsubsection*{Output}
+\label{sec-7-6-2}
+\begin{verbatim}
+33
+\end{verbatim}
+
+\section{Armstrong number}
+\label{sec-8}
+\begin{enumerate}
+\item Define a function \texttt{int to\_digits(n, s)} to convert an integer
+to a string of single digit numbers. For example, it converts
+371 to [3,7,1]. The function has two outputs:
+\begin{enumerate}
+\item \texttt{s}, an array of single digit numbers, which is passed as a
+parameter, and
+\item the number of single digits, which is returned as a value.
+\end{enumerate}
+Test the function from \texttt{main()}.
+\item Define a function \texttt{cube(x)} that returns $x^3$.
+\item Write a function \texttt{is\_armstrong(n)} that tests whether the
+integer \texttt{n} is an Armstrong number. An Armstrong number is
+equal to the sum of cubes of its digits. Test the function to
+find out all the Armstrong numbers from 0 to 500.
+\end{enumerate}
+\subsection*{Specification}
+\label{sec-8-1}
+3 functions \texttt{to\_digits()}, which gets the number \texttt{n} and array \texttt{a[]}
+as input, stores each digit in the array and returns number of digits,
+\texttt{cube()}, which finds the cube of a number, and \texttt{is\_armstrong()}, which
+gets the number, each individual digit and its length as input and checks
+if a number is armstrong or not.
+\subsection*{Prototype}
+\label{sec-8-2}
+\begin{verbatim}
+int to_digits(int n, int s[])
+int cube(int n)
+int is_armstrong(int n, int s[], int b)
+\end{verbatim}
+\subsection*{Program Design}
+\label{sec-8-3}
+The program consists of 3 functions \texttt{to\_digits(int n, int s[])} which finds
+number of digits and stores them in an array, \texttt{cube(int n)} which finds cube 
+of a number, \texttt{is\_armstrong(int n, int s[], int b)} which checks if a number is
+armstrong or not, and \texttt{main()}, which gets the input from \texttt{stdin}, calls the
+functions and prints the result on \texttt{stdout}.
+\subsection*{Algorithm}
+\label{sec-8-4}
+\begin{verbatim}
+def to_digits(n,s):
+   i=0
+   while n!=0:
+      s[i]=n%10
+      n/=10
+      i+=1
+   return i
+def cube(n):
+   return n*n*n
+def is_armstrong(n,s,b):
+   a=0
+   for i in range(b):
+      a+=cube(s[i])
+   if n==a:
+      return 1
+   return 0
+\end{verbatim}
+\subsection*{Source Code}
+\label{sec-8-5}
+\begin{verbatim}
+#include<stdio.h>
+int to_digits(int n, int s[]){
+  int i=0;
+  while(n!=0){
+    s[i]=n%10;
+    n/=10;
+    i++;
+  }
+  return i;
+}
+int cube(int n){
+  return n*n*n;
+}
+int is_armstrong(int n, int s[], int b){
+  int a=0;
+  for(int i=0;i<b;i++){
+    a+=cube(s[i]);
+  }
+  if(n==a){
+    return 1;
+  }
+  return 0;
+}
+int main(){
+  int n,s[30],f,a;
+  scanf("%d",&n);
+  a=to_digits(n,s);
+  f=is_armstrong(n,s,a);
+  if(f==1){
+    printf("Armstrong");
+  }
+  else{
+    printf("Not Armstrong");
+  }
+}
+\end{verbatim}
+\subsection*{Test}
+\label{sec-8-6}
+\subsubsection*{Input}
+\label{sec-8-6-1}
+\begin{verbatim}
+1634
+345
+\end{verbatim}
+\subsubsection*{Output}
+\label{sec-8-6-2}
+\begin{center}
+\begin{tabular}{l}
+Armstrong\\
+Not Armstrong\\
+\end{tabular}
+\end{center}
+% Emacs 24.5.1 (Org mode 8.2.10)
+\end{document}

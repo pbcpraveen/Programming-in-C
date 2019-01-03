@@ -1,0 +1,610 @@
+% Created 2018-04-14 Sat 12:50
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{palatino}
+\usepackage[top=1in,bottom=1.25in,left=1.25in,right=1.25in]{geometry}
+\usepackage{setspace}
+\setcounter{secnumdepth}{1}
+\author{PRAVEEN KUMAR R}
+\date{5/2/18}
+\title{exercise 2: Expresions,Variables,Assignments}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.5.1 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+\begin{export}
+\linespread{1.2}
+\end{export}
+\begin{center}
+\begin{tabular}{lr}
+Assignment & 1\\
+Reg No & 312217104114\\
+Name & PRAVEEN KUMAR R\\
+Grade & \\
+Date & 19-02-2018\\
+\end{tabular}
+\end{center}
+
+
+\section{Objective}
+\label{sec-1}
+\begin{enumerate}
+\item Translate expressions to C.
+\item Declare variables of data types appropriate for the calculation.
+\item Order the update of variables using a sequence of assignments.
+\item Use alternative and conditional statements.
+\item Specify, define, and call simple functions.
+\end{enumerate}
+
+\section{Home work}
+\label{sec-2}
+\section{Area and Perimeter of circle}
+\label{sec-3}
+
+\subsection*{Problem Description}
+\label{sec-3-1}
+Write a program to calculate the area and the perimeter of a
+circle. Read the radius from the user and print the outputs on the
+display.
+
+\subsection*{Specification}
+\label{sec-3-2}
+ \texttt{area(r)} 
+  input: r of tynope float
+  output: a value of type float calculated as pi*r*r.
+\texttt{perimeter(r)}
+  input: r of type float
+  output: a value of type float calculated as 2* pi*r
+
+\subsection*{Program Design}
+\label{sec-3-3}
+The program consists of the following.
+\begin{enumerate}
+\item \texttt{area(r)}: to compute the area of the circle with radius r.
+\item \texttt{perimeter(r)}: to compute the perimeter of the circle with radius r.
+\item \texttt{main()}:reads the radius and store it in r,
+calls  the functions \texttt{area(r)}, \texttt{perimeter(r)} and prints the result.
+\end{enumerate}
+
+\subsection*{Program}
+\label{sec-3-4}
+\begin{verbatim}
+#include<stdio.h>
+/*
+  input: r of type float
+  output: a value of type float calculated as pi*r*r.
+
+*/
+float area(float r)
+{
+  return 3.14*r*r;
+}
+/*
+  input: r of type float
+  output: a value of type float calculated as 2* pi*r
+*/
+float perimeter(float r)
+{
+  return 2*3.14*r;
+}
+int main()
+{
+  float r,ar,p;
+  scanf("%f",&r);
+  ar=area(r);
+  p=perimeter(r);
+  printf("radius=%4.2f\t area=%4.2f\t perimeter=%4.2f\t",r,ar,p);
+  return 0;
+}
+\end{verbatim}
+
+\begin{center}
+\begin{tabular}{lll}
+radius=40.00 & area=5024.00 & perimeter=251.20\\
+\end{tabular}
+\end{center}
+
+\section{Leap Year}
+\label{sec-4}
+
+\subsection*{Program Description}
+\label{sec-4-1}
+Write a Boolean function \texttt{is\_leap()} for testing whether a year
+is leap year or not. Test the function from \texttt{main()}.
+
+\subsection*{Specification}
+\label{sec-4-2}
+input: year, an variable of type int
+output: FLASE, if the given year is not a leap year
+        TRUE, if the given year is a leap year
+
+\subsection*{Program Design}
+\label{sec-4-3}
+The program consists of the following.
+\begin{enumerate}
+\item \texttt{is\_leap(year)}: returns \texttt{true} if the year is leap and returns \texttt{false} if the year is not leap.
+\item \texttt{main()}: inputs a year, tests the function \texttt{is\_leap(year)} and prints 1 if the year is leap and prints 0 if the year is not leap.
+\end{enumerate}
+
+\subsection*{Algorithm}
+\label{sec-4-4}
+is$_{\text{leap}}$(int year)
+     if (year\%4==0 and year\%100!=0 or year\%400==0)
+          return true
+     else
+          return false
+
+\subsection*{Program}
+\label{sec-4-5}
+\begin{verbatim}
+#include<stdio.h>
+#include<stdbool.h>
+bool is_leap(int year)
+{
+  if (year%4==0 && year%100!=0 ||year%400==0)
+    return true;
+  else
+    return false;
+}
+int main()
+{
+  int year=1999,leap;
+  // scanf("%d",&year);
+  leap=is_leap(year);
+  printf("%s",leap?"leap year":"not leap year");
+}
+\end{verbatim}
+\subsection*{test input}
+\label{sec-4-6}
+\begin{verbatim}
+1999
+\end{verbatim}
+\subsection*{output}
+\label{sec-4-7}
+\begin{verbatim}
+not leap year
+\end{verbatim}
+
+
+
+
+
+\section{Roots of Quadratic equation}
+\label{sec-5}
+
+\subsection*{Program Description}
+\label{sec-5-1}
+Read the coefficients \texttt{a}, \texttt{b}, and \texttt{c} of a quadratic
+equation. Calculate the discriminant.  Define a function \texttt{sign()}
+that returns -1 or 0 or 1 for a negative number, zero or a positive
+number, respectively. Use it to test the discriminant. If the
+discriminant is non-negative, find the roots of the equation, and
+print them. Avoid duplicate calculations whereever possible.
+
+\subsection*{Specification}
+\label{sec-5-2}
+Function \texttt{sign(n)} takes the parameter n in float and returns one
+of the integers -1,0 or 1.  \texttt{int sign(float n)}
+
+\subsection*{Program Design}
+\label{sec-5-3}
+The program consists of the following.
+\begin{enumerate}
+\item \texttt{sign(n)}:returns 1 if n is positive, 0 if n is 0 and -1 if n
+is negative.
+\item \texttt{main()}:inputs a, b and c of a quadratic equation, then finds
+the determinant \texttt{det}, tests the function \texttt{sign(n)} by passing
+det as argument.  If \texttt{sign(n)} returns 1 or 0, finds the roots
+and prints them. If it retuns -1, prints \textbf{imaginary roots}.
+\end{enumerate}
+
+\subsection*{Program}
+\label{sec-5-4}
+\begin{verbatim}
+#include<stdio.h>
+#include<math.h>
+int sign(float n)
+{
+  if (n>0)
+    return 1;
+  else if(n==0)
+    return 0;
+  else
+    return -1;
+}
+int main()
+{
+  int a,b,c,m;
+  double det,r1,r2;
+  // scanf("%d%d%d",&a,&b,&c);
+  a=3;b=-6;c=-9;
+  det=(b*b)-(4*a*c);
+  m=sign(det);
+  if (m==1)
+    {
+      r1=(-b+sqrt(det))/(2*a);
+      r2=(-b-sqrt(det))/(2*a);
+      printf("%lf %lf",r1,r2);
+    }
+  else if(m==0)
+    {
+      r1=-b/(2*a);
+      printf("%lf",r1);
+    }
+  else
+    printf("imaginary roots");
+}
+\end{verbatim}
+\subsection*{Test}
+\label{sec-5-5}
+\subsubsection*{Input}
+\label{sec-5-5-1}
+1 -8 -7
+\subsubsection*{Output}
+\label{sec-5-5-2}
+8.795832 -0.79583
+\section{Distance between 2 points}
+\label{sec-6}
+
+\subsection*{Program Description}
+\label{sec-6-1}
+Write a program to compute the distance between two points. To read a point, the program should read 2 numbers from the user for the \texttt{x} and \texttt{y}
+coordinates.  Hence your program should read numbers for the two points. Print the output on the stdout. Implement a function \texttt{distance(x1, y1, x2, y2)}
+that takes two points \texttt{(x1, y1)} and \texttt{(x2, y2)} as 4 parameters and returns the distance between the two points. Avoid duplicate calculations
+whereever possible.
+
+\subsection*{Specification}
+\label{sec-6-2}
+Function \texttt{distance(x1,y1,x2,y2)} takes 4 parameters, the coordinates of 2 points in int and returns the distance between them using the formula
+((x1-x2)$^{\text{2}}$ + (y1-y2)$^{\text{2}}$)$^{\text{1}}$/2 
+\texttt{float distance(int x1,int y1,int x2,int y2)}
+
+\subsection*{Program Design}
+\label{sec-6-3}
+The program consists of the following.
+\begin{enumerate}
+\item \texttt{distance(x1,y1,x2,y2)}: returns the distance between the points (x1,y1) and (x2,y2).
+\item \texttt{main()}:inputs the two points, tests the function \texttt{distance(x1,y1,x2,y2)} and prints the result.
+\end{enumerate}
+
+\subsection*{Program}
+\label{sec-6-4}
+
+\begin{verbatim}
+#include<stdio.h>
+#include<math.h>
+float distance(int x1,int y1 ,int x2,int y2)
+{
+   float dis;
+   dis=sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+   return dis;
+}
+int main()
+{
+   int x1,x2,y1,y2;
+   float dis;
+   scanf("%d %d %d %d",&x1,&y1,&x2,&y2);
+   dis=distance(x1,y1,x2,y2);
+   printf("%f",dis);
+}
+\end{verbatim}
+\subsection*{Test}
+\label{sec-6-5}
+\subsubsection*{Input}
+\label{sec-6-5-1}
+4 5 -3 3
+\subsubsection*{Output}
+\label{sec-6-5-2}
+7.280110
+\section{Swap two variables.}
+\label{sec-7}
+
+\subsection*{Program Description}
+\label{sec-7-1}
+Initialize two variables with values read from the user and exchange (swap) their contents. Print them before and after the swap.
+
+\subsection*{Program Design}
+\label{sec-7-2}
+The program consists of the following.
+\begin{enumerate}
+\item \texttt{main()}:inputs two numbers, a and b,prints them before and after swapping.
+\end{enumerate}
+
+\subsection*{Program}
+\label{sec-7-3}
+\begin{verbatim}
+#include <stdio.h>
+
+int main ()
+{
+  int a;
+  int b;
+
+  scanf ("%d%d", &a, &b);
+  printf ("a = %d, b = %d\n", a, b);
+  int t = a;
+  a = b;
+  b = t;
+  printf ("a = %d, b = %d\n", a, b);  
+  return 0;
+}
+\end{verbatim}
+
+\begin{center}
+\begin{tabular}{ll}
+a = 1 & b = -3\\
+a = -3 & b = 1\\
+\end{tabular}
+\end{center}
+
+\section{Swap using function}
+\label{sec-8}
+\subsection*{Description}
+\label{sec-8-1}
+Define a function \texttt{swap()} to exchange the contents of the two variables, and check whether the function works as intended. If it does not work,
+what is the reason?
+
+\subsection*{Specification}
+\label{sec-8-2}
+Function \texttt{swap(a,b)} takes two numbers as parameters and returns the numbers after swapping them.
+
+\subsection*{Function}
+\label{sec-8-3}
+int swap(int a,int b)
+\{
+   int t;
+   t=a;
+   a=b;
+   b=t;
+   return (a,b);
+)
+
+\subsection*{Reason}
+\label{sec-8-4}
+This function does not work because a function in C programming language can return only one value. It cannot return multiple values.
+
+\section{Circulate numbers}
+\label{sec-9}
+
+\subsection*{Program Description}
+\label{sec-9-1}
+Read four numbers \texttt{a, b, c, d} from stdin. Circulate them so that a gets the value of b, and so on: \texttt{a <- b <- c <- d <- a}
+
+\subsection*{Program Design}
+\label{sec-9-2}
+The program consists of the following.
+\begin{enumerate}
+\item \texttt{main()}: inputs 4 numbers, circulates them in the way \texttt{a <- b <- c <- d <- a} and prints the numbers after circulation.
+\end{enumerate}
+
+\subsection*{Algorithm}
+\label{sec-9-3}
+if there are n numbers from a$_{\text{1}}$ to a$_{\text{n}}$,
+  a1=t;
+  a1=a2;
+  a2=a3;
+  .
+  .
+  .
+  a$_{\text{(n-1)}}$=a$_{\text{n}}$;
+  a$_{\text{n}}$=t;
+
+\subsection*{Program}
+\label{sec-9-4}
+\begin{verbatim}
+#include <stdio.h>
+
+int main ()
+{
+  int a, b, c, d,t;
+
+  scanf ("%d%d%d%d", &a, &b, &c, &d);
+  printf ("a = %d, b = %d, c = %d, d = %d\n", a, b, c, d);
+  t = a;
+  a = b;
+  b = c;
+  c = d;
+  d = t;
+  printf ("a = %d, b = %d, c = %d, d = %d\n", a, b, c, d);
+  return 0;
+}
+\end{verbatim}
+
+\begin{center}
+\begin{tabular}{llll}
+a = 1 & b = -3 & c = 2 & d = 6\\
+a = -3 & b = 2 & c = 6 & d = 1\\
+\end{tabular}
+\end{center}
+
+\section{Rearrange three numbers}
+\label{sec-10}
+
+\subsection*{Program Description}
+\label{sec-10-1}
+Read three numbers \texttt{a, b, c} from stdin. Write a program to rearrange them so that \texttt{a \$\textbackslash{}le\$ b \$\textbackslash{}le\$ c}.
+
+\subsection*{Specification}
+\label{sec-10-2}
+Function \texttt{min2(a,b)} takes two integer parameters and returns the minimum of the two.
+Function \texttt{min3(a,b,c)} takes three integer parameters and returns the minimum of the three.
+\texttt{int min2(int a,int b)}
+\texttt{int min3(int a,int b,int c)}
+
+\subsection*{Program Design}
+\label{sec-10-3}
+The program consists of the following.
+\begin{enumerate}
+\item \texttt{min2(a,b)}:returns minimum of two numbers.
+\item \texttt{min3(a,b,c)}:returns minimum of three numbers.
+\item \texttt{main()}:inputs three numbers,tests \texttt{min2(a,b)} and \texttt{min3(a,b)} and rearranges the three numbers a,b,c such that \texttt{a \$\textbackslash{}le\$ b \$\textbackslash{}le\$ c}.
+\end{enumerate}
+
+\subsection*{Program}
+\label{sec-10-4}
+\begin{verbatim}
+#include<stdio.h>
+int min2(int a,int b)
+{
+   if(a<=b)
+       return a;
+   else
+       return b;
+}
+int min3(int a, int b, int c)
+{
+   int temp;
+   temp=min2(a,b);
+   return min2(temp,c);
+}
+int main()
+{
+   int a,b,c,s,t,u;
+   scanf("%d%d%d",&a,&b,&c);
+   printf("a=%d, b=%d, c=%d\n",a,b,c);
+   t=min3(a,b,c);
+   if (t==a)
+   {
+       s=min2(b,c);
+       if (s==b)
+	  u=c;
+       else
+	  u=b;
+   }
+   else if (t==b)
+	{
+	    s=min2(a,c);
+	    if(s==a)
+	       u=c;
+	    else u=a;
+	} 
+	else
+	{
+	    s=min2(a,b);
+	    if(s==a)
+	       u=b;
+	    else
+	       u=a;
+	}
+   a=t;
+   b=s;
+   c=u;
+   printf("a=%d, b=%d, c=%d",a,b,c);
+}
+\end{verbatim}
+
+\begin{center}
+\begin{tabular}{lll}
+a = 1 & b = -3 & c = 2\\
+a = -3 & b = 1 & c = 2\\
+\end{tabular}
+\end{center}
+
+\section{Rearrange numbers in an array}
+\label{sec-11}
+
+\subsection*{Program Description}
+\label{sec-11-1}
+Fill an array of 3 numbers with numbers read from stdin. Write a program to rearrange them so that \texttt{a[0] \$\textbackslash{}le\$ a[1] \$\textbackslash{}le\$ a[2]}
+
+\subsection*{Specification}
+\label{sec-11-2}
+Function \texttt{min2(a,b)} takes two integer parameters and returns the minimum of the two.
+Function \texttt{min3(a,b,c)} takes three integer parameters and returns the minimum of the three.
+\texttt{int min2(int a,int b)}
+\texttt{int min3(int a,int b,int c)}
+
+\subsection*{Program Design}
+\label{sec-11-3}
+The program consists of the following.
+\begin{enumerate}
+\item \texttt{min2(a,b)}:returns minimum of two numbers.
+\item \texttt{min3(a,b,c)}:returns minimum of three numbers.
+\item \texttt{main()}:inputs three numbers and stores them in an array, tests \texttt{min2(a,b)} and \texttt{min3(a,b)} and rearranges the three numbers in the array 
+such that \texttt{a[0]} $\le$ \texttt{a[1]} $\le$ \texttt{a[2]}.
+\end{enumerate}
+
+\subsection*{Program}
+\label{sec-11-4}
+\begin{verbatim}
+#include<stdio.h>
+int min2(int a,int b)
+{
+   if(a<=b)
+      return a;
+   else
+      return b;
+}
+int min3(int a, int b, int c)
+{
+   int temp;
+   temp=min2(a,b);
+   return min2(temp,c);
+}
+int main()
+{
+   int a[5],s,t,u,i;
+   for (i=0;i<3;i++)
+   {
+      scanf("%d",&a[i]);
+      printf("a[%d]=%d",i,a[i]);
+      if (i==2) 
+	  printf("\n");
+      else
+	  printf(", ");
+   }  
+   t=min3(a[0],a[1],a[2]);
+   if (t==a[0])
+   {
+       s=min2(a[1],a[2]);
+       if (s==a[1])
+	  u=a[2];
+       else u=a[1];
+   }
+   else if (t==a[1])
+	{
+	   s=min2(a[0],a[2]);
+	   if(s==a[0])
+	      u=a[2];
+	   else u=a[0];
+	}
+	else
+	{ 
+	   s=min2(a[0],a[1]);
+	   if(s==a[0])
+	      u=a[1];
+	   else u=a[0];
+	}
+   a[0]=t;
+   a[1]=s;
+   a[2]=u;
+   printf("a[0]=%d, a[1]=%d, a[2]=%d",a[0],a[1],a[2]);
+ }
+\end{verbatim}
+
+\begin{center}
+\begin{tabular}{lll}
+a\footnotemark = 1 & a\footnotemark = -3 & a\footnotemark = 2\\
+a\footnotemark[1]{} = -3 & a\footnotemark[2]{} = 1 & a\footnotemark[3]{} = 2\\
+\end{tabular}
+\end{center}\footnotetext[1]{DEFINITION NOT FOUND.}\footnotetext[2]{DEFINITION NOT FOUND.}\footnotetext[3]{DEFINITION NOT FOUND.}
+% Emacs 24.5.1 (Org mode 8.2.10)
+\end{document}
